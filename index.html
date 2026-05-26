@@ -53,7 +53,7 @@ body { overflow-x: hidden; background: #0a1349; }
 }
 .site-logo:hover { transform: scale(1.04); opacity: .9; }
 .site-logo img {
-  height: 46px; width: auto; display: block;
+  height: 40px; width: auto; display: block;
 }
 .main-nav { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
 .main-nav a {
@@ -1417,14 +1417,28 @@ body { overflow-x: hidden; background: #0a1349; }
     max-height: 0; overflow: hidden;
     transition: max-height .35s ease;
   }
-  .main-nav.open { max-height: 400px; }
+  .main-nav.open { max-height: 600px; }
   .main-nav a { padding: 16px 24px; width: 100%; font-size: 17px; }
   .main-nav a::after { display: none; }
-  .header-inner { justify-content: space-between; }
+  .header-inner { justify-content: space-between; flex-wrap: nowrap; }
+  /* Контакты (телефон, Telegram, Viber, язык) уезжают в выпадающее меню */
+  .header-right {
+    position: absolute; top: 100%; left: 0; width: 100%;
+    flex-direction: column; align-items: flex-start; gap: 0;
+    background: var(--color-bg-dark);
+    max-height: 0; overflow: hidden; padding: 0;
+    transition: max-height .35s ease;
+    order: 4;
+  }
+  .header-right.open { max-height: 420px; padding: 8px 0 14px; }
+  .header-phone, .header-messenger {
+    padding: 14px 24px; width: 100%; font-size: 16px;
+  }
+  .header-right .lang-switch { padding: 8px 24px; }
 }
 @media (max-width: 600px) {
   .hero-inner { padding: 0 18px; }
-  .site-logo img { height: 42px; }
+  .site-logo img { height: 34px; }
   .transport-tabs { gap: 10px; margin-bottom: 32px; }
   .transport-tab { padding: 11px 18px; font-size: 14px; }
   .hero-cta { width: 100%; justify-content: center; padding: 18px; }
@@ -1437,7 +1451,7 @@ body { overflow-x: hidden; background: #0a1349; }
   .about-inner { grid-template-columns: 1fr; gap: 48px; }
   .about-image { order: -1; }
   .about-stats { gap: 24px; }
-  .crane { height: 480px; }
+  .crane { display: none; } /* кран/контейнер только на ПК и планшете */
   .crane-container { width: min(520px, 88vw); }
   .perks-card { padding: 28px 24px; }
   .perks-num { font-size: 48px; top: 18px; right: 22px; }
@@ -1762,8 +1776,8 @@ const CONFIG = {
   /* ---------- КОНТАКТИ / МЕСЕНДЖЕРИ ---------- */
   phone:        "+380 68 259 73 68",       /* ЗМІНИТИ — текст телефону */
   phoneLink:    "tel:+380682597368",        /* ЗМІНИТИ — посилання телефону */
-  telegramUrl:  "https://t.me/yourcompany", /* ЗМІНИТИ — посилання Telegram */
-  viberUrl:     "viber://chat?number=%2B380671980697", /* ЗМІНИТИ — посилання Viber */
+  telegramUrl:  "https://t.me/+380682597368", /* ЗМІНИТИ — посилання Telegram (номер або @username) */
+  viberUrl:     "viber://chat?number=%2B380682597368", /* ЗМІНИТИ — посилання Viber */
 
   /* ---------- ПІДВАЛ (ФУТЕР) ---------- */
   footerAbout: "Міжнародна логістика повного циклу: доставка «під ключ», перевезення та митно-брокерські послуги для вашого бізнесу без кордонів.", /* ЗМІНИТИ — короткий опис під логотипом */
@@ -2090,9 +2104,9 @@ var I18N_RU = {
       { value: "Китай и страны Азии" }, { value: "Европа (страны ЕС)" }, { value: "США и Канада" },
       { value: "Турция и Ближний Восток" }, { value: "Другое направление", custom: true, customPlaceholder: "Укажите свою страну" }
     ]},
-    { question: "Каков ориентировочный вес или объём вашей поставки?", options: [
-      { value: "Мелкий груз (от 1 до 100 кг)" }, { value: "Средняя партия (от 100 кг до 1 тонны)" },
-      { value: "Крупный или коммерческий груз (от 1 тонны и более)" }, { value: "Контейнерная перевозка (FCL)" }
+    { question: "Каким видом транспорта хотите доставить?", options: [
+      { value: "Авто" }, { value: "Морем" },
+      { value: "Авиа" }, { value: "Железной дорогой" }, { value: "Мультимодально (комбинированно)" }
     ]},
     { question: "Какой комплекс услуг вам необходим?", options: [
       { value: "Доставка «под ключ»", desc: "Полный цикл: логистика + таможенное оформление" },
@@ -2301,14 +2315,17 @@ var I18N_RU = {
   /* --- Бургер-меню (мобільні) --- */
   const burger = document.getElementById('burger');
   const nav = document.getElementById('mainNav');
+  const headerRight = document.getElementById('headerRight');
   burger.addEventListener('click', () => {
     const open = nav.classList.toggle('open');
+    if (headerRight) headerRight.classList.toggle('open', open);
     burger.classList.toggle('open', open);
     burger.setAttribute('aria-expanded', open);
   });
   nav.addEventListener('click', e => {
     if (e.target.tagName === 'A') {
       nav.classList.remove('open');
+      if (headerRight) headerRight.classList.remove('open');
       burger.classList.remove('open');
       burger.setAttribute('aria-expanded', false);
     }
@@ -2460,12 +2477,13 @@ var I18N_RU = {
         ]
       },
       {
-        question: "Яка орієнтовна вага або обʼєм вашої поставки?",
+        question: "Яким видом транспорту бажаєте доставити?",
         options: [
-          { value: "Дрібний вантаж (від 1 до 100 кг)" },
-          { value: "Середня партія (від 100 кг до 1 тонни)" },
-          { value: "Великий або комерційний вантаж (від 1 тонни і більше)" },
-          { value: "Контейнерне перевезення (FCL)" }
+          { value: "Авто" },
+          { value: "Морем" },
+          { value: "Авіа" },
+          { value: "Залізницею" },
+          { value: "Мультимодально (комбіновано)" }
         ]
       },
       {
@@ -2645,7 +2663,7 @@ var I18N_RU = {
 
       const lead = {
         geo: geo,
-        weight: answers[1],
+        transport: answers[1],
         service: answers[2],
         name: name.value.trim(),
         phone: phone.value.trim(),
