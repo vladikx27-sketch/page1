@@ -576,6 +576,10 @@ body { overflow-x: hidden; background: #0a1349; }
   transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1);
 }
 .about-image.in-view { opacity: 1; transform: translateY(0); }
+/* Запасний фон, якщо зображення не завантажилось (напр. на GitHub Pages) */
+.img-fallback {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-bg-dark) 60%, var(--color-accent) 140%);
+}
 .about-image img {
   width: 100%; height: auto; display: block;
   border-radius: 20px;
@@ -893,6 +897,124 @@ body { overflow-x: hidden; background: #0a1349; }
   .quiz-box { padding: 28px 22px; }
   .quiz-nav { flex-direction: column-reverse; }
   .quiz-btn-back { width: 100%; }
+}
+
+/* ===== ВЕЛИКИЙ ПОВНОЕКРАННИЙ ПОПАП (через 20с) ===== */
+.welcome-overlay {
+  position: fixed; inset: 0; z-index: 1100;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  background: rgba(8, 14, 50, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0; visibility: hidden;
+  transition: opacity .45s ease, visibility .45s ease;
+}
+.welcome-overlay.open { opacity: 1; visibility: visible; }
+.welcome-box {
+  position: relative;
+  width: 100%; max-width: 920px;
+  min-height: 440px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: linear-gradient(180deg, #1c2a8f 0%, #16207a 100%);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 50px 110px rgba(0,0,0,0.6);
+  transform: translateY(50px) scale(.95);
+  opacity: 0;
+  transition: transform .5s cubic-bezier(.22,1,.36,1), opacity .5s ease;
+}
+.welcome-overlay.open .welcome-box { transform: translateY(0) scale(1); opacity: 1; }
+.welcome-photo {
+  position: relative;
+  background-size: cover; background-position: center;
+  min-height: 220px;
+  filter: brightness(1.12) saturate(1.08);
+}
+.welcome-photo::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(31,78,216,0.12), rgba(14,26,94,0.18));
+}
+.welcome-content {
+  padding: 48px 44px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.welcome-close {
+  position: absolute; top: 18px; right: 18px; z-index: 3;
+  width: 42px; height: 42px; border-radius: 50%;
+  background: rgba(255,255,255,0.12); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .25s ease, transform .25s ease;
+}
+.welcome-close:hover { background: rgba(255,255,255,0.22); transform: rotate(90deg); }
+.welcome-close svg { width: 20px; height: 20px; stroke: #fff; stroke-width: 2.4; fill: none; stroke-linecap: round; }
+.welcome-eyebrow {
+  font-family: var(--font-body); font-size: 13px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--color-accent); margin-bottom: 12px;
+}
+.welcome-title {
+  font-family: var(--font-heading); font-weight: 700;
+  font-size: clamp(28px, 4vw, 40px); line-height: 1.05;
+  text-transform: uppercase; color: var(--color-text); margin-bottom: 14px;
+}
+.welcome-sub {
+  font-family: var(--font-body); font-size: 15px; line-height: 1.55;
+  color: var(--color-text-muted); margin-bottom: 26px;
+}
+.welcome-form { display: flex; flex-direction: column; gap: 12px; }
+.welcome-form input {
+  width: 100%;
+  font-family: var(--font-body); font-size: 16px; color: var(--color-text);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 12px; padding: 14px 16px;
+  transition: border-color .25s ease, box-shadow .25s ease, background .25s ease;
+}
+.welcome-form input::placeholder { color: rgba(199,214,245,0.5); }
+.welcome-form input:focus {
+  outline: none; border-color: var(--color-accent);
+  background: rgba(255,255,255,0.1);
+  box-shadow: 0 0 0 3px rgba(6,182,212,0.18);
+}
+.welcome-form input.invalid { border-color: #ef5350; box-shadow: 0 0 0 3px rgba(239,83,80,0.18); }
+.welcome-submit {
+  margin-top: 6px;
+  font-family: var(--font-body); font-weight: 700; font-size: 16px;
+  color: #fff; background: var(--color-hover-dark);
+  border: none; border-radius: 50px; padding: 16px; cursor: pointer;
+  box-shadow: 0 8px 22px rgba(199,125,8,0.4);
+  transition: background .25s ease, transform .25s ease, box-shadow .25s ease;
+}
+.welcome-submit:hover { background: var(--color-hover); transform: translateY(-2px); box-shadow: 0 14px 30px rgba(245,155,13,0.5); }
+.welcome-note {
+  font-family: var(--font-body); font-size: 12px; line-height: 1.5;
+  color: rgba(199,214,245,0.55); text-align: center; margin-top: 14px;
+}
+.welcome-success { display: none; text-align: center; }
+.welcome-box.is-success .welcome-form,
+.welcome-box.is-success .welcome-eyebrow,
+.welcome-box.is-success .welcome-title,
+.welcome-box.is-success .welcome-sub,
+.welcome-box.is-success .welcome-note { display: none; }
+.welcome-box.is-success .welcome-success { display: block; }
+.welcome-success-icon {
+  width: 76px; height: 76px; margin: 0 auto 22px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  display: flex; align-items: center; justify-content: center;
+}
+.welcome-success-icon svg { width: 38px; height: 38px; stroke: #fff; stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.welcome-success h3 {
+  font-family: var(--font-heading); font-weight: 700; font-size: 26px;
+  text-transform: uppercase; color: var(--color-text); margin-bottom: 10px;
+}
+.welcome-success p { font-family: var(--font-body); font-size: 15px; line-height: 1.6; color: var(--color-text-muted); }
+@media (max-width: 760px) {
+  .welcome-box { grid-template-columns: 1fr; max-width: 440px; min-height: 0; }
+  .welcome-photo { min-height: 160px; }
+  .welcome-content { padding: 36px 28px; }
 }
 
 /* ===== ПЛАВАЮЧІ КНОПКИ (вгору + чат) ===== */
@@ -1408,7 +1530,7 @@ body { overflow-x: hidden; background: #0a1349; }
       <div class="quiz-layout">
         <!-- Картинка зліва -->
         <div class="quiz-photo">
-          <img src="images/quiz-photo.jpg" alt="Співробітниця LVM Logistic">
+          <img src="images/quiz-photo.jpg" alt="Співробітниця LVM Logistic" onerror="this.style.display='none'; this.parentNode.classList.add('img-fallback');">
         </div>
 
         <!-- Квіз справа -->
@@ -1445,6 +1567,34 @@ body { overflow-x: hidden; background: #0a1349; }
     </div>
   </section>
 </main>
+
+<!-- ===== ВЕЛИКИЙ ПОВНОЕКРАННИЙ ПОПАП (через 20с) ===== -->
+<div class="welcome-overlay" id="welcomeOverlay" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
+  <div class="welcome-box" id="welcomeBox">
+    <button class="welcome-close" id="welcomeClose" aria-label="Закрити">
+      <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="welcome-photo" id="welcomePhoto"></div>
+    <div class="welcome-content">
+      <span class="welcome-eyebrow" id="welcomeEyebrow"></span>
+      <h2 class="welcome-title" id="welcomeTitle"></h2>
+      <p class="welcome-sub" id="welcomeSub"></p>
+      <div class="welcome-form" id="welcomeForm">
+        <input type="text" id="welcomeName" placeholder="" autocomplete="name">
+        <input type="tel" id="welcomePhone" placeholder="+38 (0__) ___-__-__" inputmode="tel" autocomplete="tel">
+        <button class="welcome-submit" id="welcomeSubmit" type="button"></button>
+      </div>
+      <p class="welcome-note" id="welcomeNote"></p>
+      <div class="welcome-success">
+        <div class="welcome-success-icon">
+          <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <h3 id="welcomeSuccessTitle"></h3>
+        <p id="welcomeSuccessText"></p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ===== ПЛАВАЮЧІ КНОПКИ (вгору + чат) ===== -->
 <div class="floating-buttons">
@@ -1665,7 +1815,7 @@ const CONFIG = {
   /* ===== ПОПАП ЗАЯВКИ (відкривається кнопкою CTA) ===== */
   popupEyebrow:  "Безкоштовний прорахунок",      /* ЗМІНИТИ — маленький напис зверху */
   popupTitle:    "Зв'яжемося з вами",            /* ЗМІНИТИ — заголовок попапу */
-  popupSubtitle: "Залиште свої контакти — наш менеджер передзвонить протягом 15 хвилин і розрахує вартість доставки.", /* ЗМІНИТИ */
+  popupSubtitle: "Залиште свої контакти — звʼяжемось з вами протягом 10 хвилин і розрахуємо вартість доставки.", /* ЗМІНИТИ */
   popupNameLabel:  "Ваше ім'я",                  /* ЗМІНИТИ */
   popupNamePlaceholder: "Введіть ім'я",          /* (не використовується, але можна) */
   popupPhoneLabel: "Номер телефону",             /* ЗМІНИТИ */
@@ -1673,6 +1823,21 @@ const CONFIG = {
   popupNote: "Натискаючи кнопку, ви погоджуєтесь на обробку персональних даних.", /* ЗМІНИТИ */
   popupSuccessTitle: "Дякуємо!",                 /* ЗМІНИТИ — заголовок після відправки */
   popupSuccessText: "Вашу заявку прийнято. Менеджер зв'яжеться з вами найближчим часом.", /* ЗМІНИТИ */
+
+  /* ---------- ВЕЛИКИЙ ПОПАП (зʼявляється через N секунд) ---------- */
+  welcomeEnabled:  true,                 /* ЗМІНИТИ — true/false: показувати попап */
+  welcomeDelay:    20000,                /* ЗМІНИТИ — затримка перед показом (мс). 20000 = 20 сек */
+  welcomeOncePerSession: true,           /* ЗМІНИТИ — true: показувати лише раз за сесію */
+  welcomeImage:    "images/quiz-photo.jpg", /* ЗМІНИТИ — картинка ліворуч у попапі */
+  welcomeEyebrow:  "Спеціальна пропозиція", /* ЗМІНИТИ */
+  welcomeTitle:    "Безкоштовний розрахунок доставки", /* ЗМІНИТИ */
+  welcomeSub:      "Залиште імʼя та телефон — звʼяжемось з вами протягом 10 хвилин.", /* ЗМІНИТИ */
+  welcomeNamePlaceholder:  "Ваше імʼя",  /* ЗМІНИТИ */
+  welcomeSubmitText: "Отримати розрахунок", /* ЗМІНИТИ */
+  welcomeNote:     "Натискаючи кнопку, ви погоджуєтесь на обробку персональних даних.", /* ЗМІНИТИ */
+  welcomeSuccessTitle: "Дякуємо!",       /* ЗМІНИТИ */
+  welcomeSuccessText:  "Вашу заявку прийнято. Менеджер звʼяжеться з вами найближчим часом.", /* ЗМІНИТИ */
+
   /* Коди країн (перший = за замовчуванням). Прапор + код */
   popupCountryCodes: [
     { flag: "🇺🇦", code: "+380", name: "Україна" },
@@ -1848,13 +2013,21 @@ var I18N_RU = {
   ctaText: "Рассчитать стоимость доставки",
   popupEyebrow:  "Бесплатный расчёт",
   popupTitle:    "Свяжемся с вами",
-  popupSubtitle: "Оставьте свои контакты — наш менеджер перезвонит в течение 15 минут и рассчитает стоимость доставки.",
+  popupSubtitle: "Оставьте свои контакты — свяжемся с вами в течение 10 минут и рассчитаем стоимость доставки.",
   popupNameLabel:  "Ваше имя",
   popupPhoneLabel: "Номер телефона",
   popupSubmitText: "Отправить заявку",
   popupNote: "Нажимая кнопку, вы соглашаетесь на обработку персональных данных.",
   popupSuccessTitle: "Спасибо!",
   popupSuccessText: "Ваша заявка принята. Менеджер свяжется с вами в ближайшее время.",
+  welcomeEyebrow:  "Специальное предложение",
+  welcomeTitle:    "Бесплатный расчёт доставки",
+  welcomeSub:      "Оставьте имя и телефон — свяжемся с вами в течение 10 минут.",
+  welcomeNamePlaceholder: "Ваше имя",
+  welcomeSubmitText: "Получить расчёт",
+  welcomeNote:     "Нажимая кнопку, вы соглашаетесь на обработку персональных данных.",
+  welcomeSuccessTitle: "Спасибо!",
+  welcomeSuccessText:  "Ваша заявка принята. Менеджер свяжется с вами в ближайшее время.",
   cargoTitle: "Что доставляем?",
   cargoSubtitle: "Работаем с широким спектром грузов — от пищевой продукции до промышленного оборудования",
   categories: [
@@ -1946,7 +2119,28 @@ var I18N_RU = {
 (function init() {
   /* --- Визначаємо активну мову та застосовуємо переклад до рендеру --- */
   var savedLang = null;
-  try { savedLang = window.name && window.name.indexOf('LVM_LANG=') === 0 ? window.name.slice(9) : null; } catch(e){}
+  try {
+    var wn = window.name || '';
+    var mt = wn.match(/LVM_LANG=([A-Z]{2})/);
+    if (mt) savedLang = mt[1];
+  } catch(e){}
+
+  /* Хелпер: зберігаємо ключі в window.name (переживає reload, на відміну від localStorage) */
+  function wnSet(key, value) {
+    try {
+      var s = window.name || '';
+      var re = new RegExp(key + '=[^|]*');
+      if (re.test(s)) s = s.replace(re, key + '=' + value);
+      else s = s ? s + '|' + key + '=' + value : key + '=' + value;
+      window.name = s;
+    } catch(e){}
+  }
+  function wnGet(key) {
+    try {
+      var m = (window.name || '').match(new RegExp(key + '=([^|]*)'));
+      return m ? m[1] : null;
+    } catch(e){ return null; }
+  }
   var activeLang = savedLang || (CONFIG.langActive === 'RU' ? 'RU' : 'UA');
 
   /* глибоке злиття перекладу поверх CONFIG (масиви — поелементно по полях) */
@@ -1978,6 +2172,28 @@ var I18N_RU = {
   }
 
   const c = CONFIG;
+
+  /* =========================================================
+     ВІДПРАВКА ЗАЯВОК (Telegram через Cloudflare Worker)
+     1. Створіть бота у @BotFather → отримайте ТОКЕН
+     2. Дізнайтесь свій chat_id у @userinfobot
+     3. Створіть безкоштовний Cloudflare Worker (код у файлі worker.js)
+     4. Вставте URL свого воркера нижче в LEAD_ENDPOINT
+     Поки LEAD_ENDPOINT порожній — заявки лише у консолі (console.log).
+     ========================================================= */
+  const LEAD_ENDPOINT = "https://lvm-leads.vladikx27.workers.dev"; /* URL Cloudflare Worker — заявки идут в Telegram */
+
+  function sendLead(type, data) {
+    /* type — звідки заявка (квіз / попап / чат), data — обʼєкт з полями */
+    const payload = Object.assign({ source: type, page: location.href, time: new Date().toLocaleString('uk-UA') }, data);
+    console.log('Заявка [' + type + ']:', payload); /* дубль у консоль для перевірки */
+    if (!LEAD_ENDPOINT) return Promise.resolve(); /* ендпоінт не налаштований — нічого не шлемо */
+    return fetch(LEAD_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(function(err){ console.error('Помилка відправки заявки:', err); });
+  }
 
   /* --- Кольори у CSS-змінні --- */
   const r = document.documentElement.style;
@@ -2033,7 +2249,7 @@ var I18N_RU = {
   /* --- Логотип --- */
   const logo = document.getElementById('siteLogo');
   logo.setAttribute('href', c.logoUrl);
-  logo.innerHTML = '<img src="' + c.logo + '" alt="' + c.logoAlt + '">';
+  logo.innerHTML = '<img src="' + c.logo + '" alt="' + c.logoAlt + '" onerror="this.style.display=\'none\'">';
 
   /* --- Навігація --- */
   document.getElementById('mainNav').innerHTML =
@@ -2064,7 +2280,7 @@ var I18N_RU = {
       e.preventDefault();
       const lang = a.getAttribute('data-lang');
       if (lang === c.langActive) return;
-      try { window.name = 'LVM_LANG=' + lang; } catch(err){}
+      wnSet('LVM_LANG', lang);
       location.reload();
     });
   });
@@ -2211,9 +2427,7 @@ var I18N_RU = {
         phone: codeSelect.value + ' ' + phoneInput.value.trim(),
         country: codeSelect.options[codeSelect.selectedIndex].title
       };
-      console.log('Нова заявка:', lead);
-      /* TODO: тут можна відправити дані на сервер / email / Telegram.
-         Наприклад: fetch('/api/lead', { method:'POST', body: JSON.stringify(lead) }); */
+      sendLead('Попап заявки', lead);
 
       /* Показуємо екран подяки */
       box.classList.add('is-success');
@@ -2438,9 +2652,7 @@ var I18N_RU = {
         email: email.value.trim(),
         comment: comment.value.trim()
       };
-      console.log('Заявка з квіза:', lead);
-      /* TODO: відправка на сервер / email / Telegram:
-         fetch('/api/quiz', { method:'POST', body: JSON.stringify(lead) }); */
+      sendLead('Квіз (розрахунок вартості)', lead);
 
       box.classList.add('is-success');
     }
@@ -2615,12 +2827,89 @@ var I18N_RU = {
       if (phoneI.value.replace(/\D/g, '').length < 9) { phoneI.classList.add('invalid'); ok = false; }
       if (!ok) return;
       const lead = { name: nameI.value.trim(), phone: phoneI.value.trim() };
-      console.log('Заявка з чату:', lead);
-      /* TODO: відправка на сервер / email / Telegram */
+      sendLead('Кнопка чату', lead);
       popup.classList.add('is-success');
       nameI.value = ''; phoneI.value = '';
       setTimeout(() => { if (popup.classList.contains('open')) closeChat(); }, 3500);
     });
+  })();
+
+  /* =========================================================
+     ВЕЛИКИЙ ПОВНОЕКРАННИЙ ПОПАП (через welcomeDelay секунд)
+     ========================================================= */
+  (function initWelcome() {
+    const overlay = document.getElementById('welcomeOverlay');
+    if (!overlay || !c.welcomeEnabled) return;
+
+    /* Якщо вже показували в цій сесії — не показуємо знову */
+    if (c.welcomeOncePerSession && wnGet('LVM_WELCOME') === '1') return;
+
+    /* Заповнюємо тексти з конфігу */
+    const photo = document.getElementById('welcomePhoto');
+    if (photo && c.welcomeImage) photo.style.backgroundImage = "url('" + c.welcomeImage + "')";
+    document.getElementById('welcomeEyebrow').textContent = c.welcomeEyebrow || '';
+    document.getElementById('welcomeTitle').textContent   = c.welcomeTitle || '';
+    document.getElementById('welcomeSub').textContent     = c.welcomeSub || '';
+    document.getElementById('welcomeName').placeholder    = c.welcomeNamePlaceholder || 'Ваше імʼя';
+    document.getElementById('welcomeSubmit').textContent  = c.welcomeSubmitText || 'Надіслати';
+    document.getElementById('welcomeNote').textContent    = c.welcomeNote || '';
+    document.getElementById('welcomeSuccessTitle').textContent = c.welcomeSuccessTitle || '';
+    document.getElementById('welcomeSuccessText').textContent  = c.welcomeSuccessText || '';
+
+    const box      = document.getElementById('welcomeBox');
+    const closeBtn = document.getElementById('welcomeClose');
+    const nameI    = document.getElementById('welcomeName');
+    const phoneI   = document.getElementById('welcomePhone');
+    const submit   = document.getElementById('welcomeSubmit');
+
+    function openWelcome() {
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      wnSet('LVM_WELCOME', '1');
+      setTimeout(() => nameI.focus(), 500);
+    }
+    function closeWelcome() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    closeBtn.addEventListener('click', closeWelcome);
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeWelcome(); });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && overlay.classList.contains('open')) closeWelcome();
+    });
+
+    [nameI, phoneI].forEach(i => i.addEventListener('input', () => i.classList.remove('invalid')));
+
+    /* Маска українського телефону */
+    phoneI.addEventListener('input', () => {
+      let d = phoneI.value.replace(/\D/g, '');
+      if (d.startsWith('380')) d = d.slice(3);
+      else if (d.startsWith('0')) d = d.slice(1);
+      d = d.slice(0, 9);
+      if (!d.length) { phoneI.value = ''; return; }
+      let out = '+38 (0' + d.slice(0, 2);
+      if (d.length >= 2) out += ') ';
+      out += d.slice(2, 5);
+      if (d.length >= 5) out += '-' + d.slice(5, 7);
+      if (d.length >= 7) out += '-' + d.slice(7, 9);
+      phoneI.value = out;
+    });
+
+    submit.addEventListener('click', () => {
+      let ok = true;
+      if (!nameI.value.trim()) { nameI.classList.add('invalid'); ok = false; }
+      if (phoneI.value.replace(/\D/g, '').length < 9) { phoneI.classList.add('invalid'); ok = false; }
+      if (!ok) return;
+      const lead = { name: nameI.value.trim(), phone: phoneI.value.trim() };
+      sendLead('Великий попап (20 сек)', lead);
+      box.classList.add('is-success');
+      nameI.value = ''; phoneI.value = '';
+      setTimeout(() => { if (overlay.classList.contains('open')) closeWelcome(); }, 3500);
+    });
+
+    /* Запуск через затримку */
+    setTimeout(openWelcome, c.welcomeDelay || 20000);
   })();
 
   /* =========================================================
@@ -2770,6 +3059,7 @@ var I18N_RU = {
   if (craneSection && craneImg && c.craneImage) {
     craneImg.src = c.craneImage;
     craneImg.alt = c.aboutImageAlt || 'Контейнер на крані';
+    craneImg.onerror = function(){ craneSection.style.display = 'none'; };
     const updateCrane = () => {
       const rect = craneSection.getBoundingClientRect();
       const vh = window.innerHeight;
@@ -2803,7 +3093,8 @@ var I18N_RU = {
     }
     aboutText.innerHTML = eyebrow +
       '<h2 class="about-title">' + c.aboutTitle + '</h2>' + paras + stats;
-    aboutImage.innerHTML = '<img src="' + c.aboutImage + '" alt="' + c.aboutImageAlt + '">';
+    aboutImage.innerHTML = '<img src="' + c.aboutImage + '" alt="' + c.aboutImageAlt + '" ' +
+      'onerror="this.style.display=\'none\'; this.parentNode.classList.add(\'img-fallback\');">';
 
     if ('IntersectionObserver' in window) {
       const aObs = new IntersectionObserver((entries) => {
