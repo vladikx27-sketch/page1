@@ -2081,6 +2081,7 @@ var I18N_RU = {
   aboutImageAlt: "Контейнер LVM logistic на складе — международная логистика",
   /* Футер */
   footerAbout: "Международная логистика полного цикла: доставка «под ключ», перевозка и таможенно-брокерские услуги для вашего бизнеса без границ.",
+  footerAddress: "город Днепр, пер. Добровольцев, дом 15, офис 3",
   footerHoursLabel: "",
   footerHours: "",
   footerNavTitle: "Навигация",
@@ -2201,6 +2202,7 @@ var I18N_EN = {
   ],
   aboutImageAlt: "LVM logistic container at the warehouse — international logistics",
   footerAbout: "Full-cycle international logistics: turnkey delivery, transportation and customs brokerage services for your business without borders.",
+  footerAddress: "Dnipro, Dobrovoltsiv Lane, building 15, office 3",
   footerHoursLabel: "",
   footerHours: "",
   footerNavTitle: "Navigation",
@@ -2975,8 +2977,8 @@ var I18N_EN = {
     const overlay = document.getElementById('welcomeOverlay');
     if (!overlay || !c.welcomeEnabled) return;
 
-    /* Якщо вже показували в цій сесії — не показуємо знову */
-    if (c.welcomeOncePerSession && wnGet('LVM_WELCOME') === '1') return;
+    /* Попап зʼявляється при кожному завантаженні сторінки (захід або оновлення).
+       Один раз за завантаження, через welcomeDelay секунд. Без запамʼятовування. */
 
     /* Заповнюємо тексти з конфігу */
     const photo = document.getElementById('welcomePhoto');
@@ -3000,7 +3002,6 @@ var I18N_EN = {
     function openWelcome() {
       overlay.classList.add('open');
       document.body.style.overflow = 'hidden';
-      wnSet('LVM_WELCOME', '1');
       setTimeout(() => nameI.focus(), 500);
     }
     function closeWelcome() {
