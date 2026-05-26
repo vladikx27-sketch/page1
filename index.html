@@ -6,7 +6,7 @@
 
 <!-- ===== SEO META ===== -->
 <title>Доставка під ключ — Міжнародна логістика</title>
-<meta name="description" content="Повний цикл імпорту та експорту: авіа, море, авто, залізниця, мультимодально. Розрахунок вартості доставки онлайн.">
+<meta name="description" content="Повний цикл імпорту та експорту: авіа, море, авто, залізниця, комбіновано. Розрахунок вартості доставки онлайн.">
 <meta property="og:title" content="Доставка під ключ — Міжнародна логістика">
 <meta property="og:type" content="website">
 
@@ -1782,8 +1782,8 @@ const CONFIG = {
   footerEmail:     "office@lvmlogistic.com.ua",        /* ЗМІНИТИ — e-mail */
   footerEmailLink: "mailto:office@lvmlogistic.com.ua", /* ЗМІНИТИ — посилання e-mail */
   footerAddress:   "місто Дніпро, пров. Добровольців, будинок 15, офіс 3", /* ЗМІНИТИ — адреса (порожнє = приховати) */
-  footerHoursLabel: "Графік роботи",               /* ЗМІНИТИ */
-  footerHours:      "Цілодобово, 24/7",            /* ЗМІНИТИ */
+  footerHoursLabel: "",               /* ЗМІНИТИ */
+  footerHours:      "",            /* порожнє = графік прихований */
   /* Соцмережі (key = тип іконки). Прибрати — видалити рядок, додати — дописати */
   footerSocials: [
     { type: "instagram", url: "https://www.instagram.com/lvm.logistic?igsh=MXFjNm5mamhuejcxYw%3D%3D&utm_source=qr", label: "Instagram" },
@@ -1801,8 +1801,9 @@ const CONFIG = {
 
   /* ---------- ПЕРЕМИКАЧ МОВИ (випадаючий список) ---------- */
   languages: [
-    { code: "UA", url: "#" }, /* ЗМІНИТИ — посилання на українську версію */
-    { code: "RU", url: "#" }  /* ЗМІНИТИ — посилання на російську версію */
+    { code: "UA", url: "#" }, /* українська (за замовчуванням) */
+    { code: "RU", url: "#" }, /* російська */
+    { code: "EN", url: "#" }  /* англійська */
   ],
   langActive: "UA",           /* ЗМІНИТИ — яка мова активна зараз */
 
@@ -1813,7 +1814,7 @@ const CONFIG = {
     { text: "Море" },           /* ЗМІНИТИ */
     { text: "Авто" },           /* ЗМІНИТИ */
     { text: "Залізниця" },      /* ЗМІНИТИ */
-    { text: "Мультимодально" }  /* ЗМІНИТИ */
+    { text: "Комбіновано" }  /* ЗМІНИТИ */
   ],
 
   /* ---------- ТЕКСТИ HERO ---------- */
@@ -1841,7 +1842,7 @@ const CONFIG = {
   welcomeDelay:    20000,                /* ЗМІНИТИ — затримка перед показом (мс). 20000 = 20 сек */
   welcomeOncePerSession: true,           /* ЗМІНИТИ — true: показувати лише раз за сесію */
   welcomeImage:    "quiz-photo.jpg", /* ЗМІНИТИ — картинка ліворуч у попапі */
-  welcomeEyebrow:  "Спеціальна пропозиція", /* ЗМІНИТИ */
+  welcomeEyebrow:  "", /* порожнє = напис прихований */
   welcomeTitle:    "Безкоштовний розрахунок доставки", /* ЗМІНИТИ */
   welcomeSub:      "Залиште імʼя та телефон — звʼяжемось з вами протягом 10 хвилин.", /* ЗМІНИТИ */
   welcomeNamePlaceholder:  "Ваше імʼя",  /* ЗМІНИТИ */
@@ -1943,7 +1944,7 @@ const CONFIG = {
     },
     {
       iconKey: "auto", /* ЗМІНИТИ */
-      title: "Мультимодально", /* ЗМІНИТИ */
+      title: "Комбіновано", /* ЗМІНИТИ */
       text: "Комбінуємо кілька видів транспорту (наприклад, море + авто), щоб ви отримали максимально вигідну вартість логістики та чітке дотримання термінів." /* ЗМІНИТИ */
     }
   ],
@@ -1956,7 +1957,7 @@ const CONFIG = {
     { iconKey: "avia",     text: "Авіадоставка" },            /* ЗМІНИТИ */
     { iconKey: "express",  text: "Експрес-доставка" },        /* ЗМІНИТИ */
     { iconKey: "rail",     text: "Залізничні перевезення" },  /* ЗМІНИТИ */
-    { iconKey: "auto",     text: "Мультимодальні рішення" }   /* ЗМІНИТИ */
+    { iconKey: "auto",     text: "Комбіновані рішення" }   /* ЗМІНИТИ */
   ],
   /* ---------- СЕКЦІЯ "ПЕРЕВАГИ" ---------- */
   perksTitle:    "Які переваги надаємо ми?", /* ЗМІНИТИ — заголовок секції */
@@ -2018,7 +2019,7 @@ var I18N_RU = {
   ],
   transportTabs: [
     { text: "Экспресс" }, { text: "Авиа" }, { text: "Море" },
-    { text: "Авто" }, { text: "Железная дорога" }, { text: "Мультимодально" }
+    { text: "Авто" }, { text: "Железная дорога" }, { text: "Комбинированно" }
   ],
   heroTitleLine1: "Доставка",
   heroTitleLine2: "под ключ",
@@ -2032,7 +2033,7 @@ var I18N_RU = {
   popupNote: "Нажимая кнопку, вы соглашаетесь на обработку персональных данных.",
   popupSuccessTitle: "Спасибо!",
   popupSuccessText: "Ваша заявка принята. Менеджер свяжется с вами в ближайшее время.",
-  welcomeEyebrow:  "Специальное предложение",
+  welcomeEyebrow:  "",
   welcomeTitle:    "Бесплатный расчёт доставки",
   welcomeSub:      "Оставьте имя и телефон — свяжемся с вами в течение 10 минут.",
   welcomeNamePlaceholder: "Ваше имя",
@@ -2058,11 +2059,11 @@ var I18N_RU = {
     { title: "Морем", text: "Самый выгодный вариант для транспортировки крупных партий товаров. Никаких ограничений по весу или объёму — везём контейнерами любые масштабы." },
     { title: "Авто", text: "Надёжная доставка фурами по всей Европе, а также быстрая перевозка грузов между портами, аэропортами и вашими складами." },
     { title: "Железной дорогой", text: "Умная и стабильная альтернатива морю для определённых категорий грузов. Чёткий график движения поездов без риска застрять в пробках или портах." },
-    { title: "Мультимодально", text: "Комбинируем несколько видов транспорта (например, море + авто), чтобы вы получили максимально выгодную стоимость логистики и чёткое соблюдение сроков." }
+    { title: "Комбинированно", text: "Комбинируем несколько видов транспорта (например, море + авто), чтобы вы получили максимально выгодную стоимость логистики и чёткое соблюдение сроков." }
   ],
   conveyorItems: [
     { text: "Контейнерные перевозки" }, { text: "Сборные грузы" }, { text: "Авиадоставка" },
-    { text: "Экспресс-доставка" }, { text: "Железнодорожные перевозки" }, { text: "Мультимодальные решения" }
+    { text: "Экспресс-доставка" }, { text: "Железнодорожные перевозки" }, { text: "Комбинированные решения" }
   ],
   perksTitle: "Какие преимущества предоставляем мы?",
   perksSubtitle: "Более 16 лет на рынке",
@@ -2080,8 +2081,8 @@ var I18N_RU = {
   aboutImageAlt: "Контейнер LVM logistic на складе — международная логистика",
   /* Футер */
   footerAbout: "Международная логистика полного цикла: доставка «под ключ», перевозка и таможенно-брокерские услуги для вашего бизнеса без границ.",
-  footerHoursLabel: "График работы",
-  footerHours: "Круглосуточно, 24/7",
+  footerHoursLabel: "",
+  footerHours: "",
   footerNavTitle: "Навигация",
   footerContactTitle: "Контакты",
   footerSocialTitle: "Мы в соцсетях",
@@ -2104,7 +2105,7 @@ var I18N_RU = {
     ]},
     { question: "Каким видом транспорта хотите доставить?", options: [
       { value: "Авто" }, { value: "Морем" },
-      { value: "Авиа" }, { value: "Железной дорогой" }, { value: "Мультимодально (комбинированно)" }
+      { value: "Авиа" }, { value: "Железной дорогой" }, { value: "Комбинированно" }
     ]},
     { question: "Какой комплекс услуг вам необходим?", options: [
       { value: "Доставка «под ключ»", desc: "Полный цикл: логистика + таможенное оформление" },
@@ -2123,6 +2124,124 @@ var I18N_RU = {
   chatName: "Ваше имя",
   chatSubmit: "Перезвоните мне",
   chatSuccess: "Спасибо! Ваша заявка принята.<br>Менеджер свяжется с вами в ближайшее время."
+};
+
+/* =========================================================
+   ПЕРЕКЛАД АНГЛІЙСЬКОЮ (I18N_EN) — ключі дублюють CONFIG
+   ========================================================= */
+var I18N_EN = {
+  nav: [
+    { text: "Home",          url: "#hero" },
+    { text: "What We Ship",  url: "#export" },
+    { text: "How We Ship",   url: "#tracking" },
+    { text: "Advantages",    url: "#countries" },
+    { text: "About Us",      url: "#about" },
+    { text: "Contacts",      url: "#contacts" }
+  ],
+  transportTabs: [
+    { text: "Express" }, { text: "Air" }, { text: "Sea" },
+    { text: "Road" }, { text: "Rail" }, { text: "Combined" }
+  ],
+  heroTitleLine1: "Turnkey",
+  heroTitleLine2: "Delivery",
+  ctaText: "Calculate Delivery Cost",
+  popupEyebrow:  "Free Quote",
+  popupTitle:    "We'll Contact You",
+  popupSubtitle: "Leave your contacts — we'll get in touch within 10 minutes and calculate your delivery cost.",
+  popupNameLabel:  "Your Name",
+  popupPhoneLabel: "Phone Number",
+  popupSubmitText: "Send Request",
+  popupNote: "By clicking the button, you agree to the processing of personal data.",
+  popupSuccessTitle: "Thank You!",
+  popupSuccessText: "Your request has been received. A manager will contact you shortly.",
+  welcomeEyebrow:  "",
+  welcomeTitle:    "Free Delivery Quote",
+  welcomeSub:      "Leave your name and phone — we'll contact you within 10 minutes.",
+  welcomeNamePlaceholder: "Your Name",
+  welcomeSubmitText: "Get a Quote",
+  welcomeNote:     "By clicking the button, you agree to the processing of personal data.",
+  welcomeSuccessTitle: "Thank You!",
+  welcomeSuccessText:  "Your request has been received. A manager will contact you shortly.",
+  cargoTitle: "What We Ship?",
+  cargoSubtitle: "We work with a wide range of cargo — from food products to industrial equipment",
+  categories: [
+    { title: "Food Industry", items: ["Finished products (FMCG)", "Temperature-controlled cargo", "Food raw materials and ingredients"] },
+    { title: "Woodworking Industry", items: ["Raw materials and timber", "Building and construction materials", "Finished products and furniture"] },
+    { title: "Machinery & Equipment", items: ["Industrial equipment and lines", "Agricultural and special machinery", "Components, units and spare parts"] },
+    { title: "Chemical Industry", items: ["Commercial and household chemicals", "Industrial chemicals (ADR cargo)", "Agrochemicals and fertilizers"] },
+    { title: "Agricultural Sector", items: ["Grains, legumes and oilseeds", "Seeds and planting material", "Fresh produce (vegetables and fruits)"] },
+    { title: "Consumer Goods", items: ["Industrial goods and tools", "Tableware and household goods", "Commercial groupage cargo (LCL)"] }
+  ],
+  howtoTitle: "How We Ship?",
+  howtoSubtitle: "We choose the optimal delivery method for your cargo, budget and timeline",
+  howtoItems: [
+    { title: "Express", text: "Priority launch of logistics processes and elimination of any administrative delays. Ideal for product launches or shipments where service is everything." },
+    { title: "Air", text: "Fast air transport to quickly replenish your warehouses or launch new sales. The optimal balance of speed and reliability." },
+    { title: "Sea", text: "The most cost-effective option for transporting large batches of goods. No weight or volume limits — we ship containers of any scale." },
+    { title: "Road", text: "Reliable truck delivery across Europe, as well as fast cargo transport between ports, airports and your warehouses." },
+    { title: "Rail", text: "A smart and stable alternative to sea for certain cargo categories. Precise train schedules with no risk of getting stuck in traffic or at ports." },
+    { title: "Combined", text: "We combine several modes of transport (e.g. sea + road) so you get the most cost-effective logistics and precise adherence to deadlines." }
+  ],
+  conveyorItems: [
+    { text: "Container shipping" }, { text: "Groupage cargo" }, { text: "Air delivery" },
+    { text: "Express delivery" }, { text: "Rail transport" }, { text: "Combined solutions" }
+  ],
+  perksTitle: "What Advantages Do We Offer?",
+  perksSubtitle: "Over 16 years on the market",
+  perksItems: [
+    { title: "Turnkey Solutions", tag: "Logistics and customs clearance", text: "We handle the full delivery cycle: from communication with the foreign supplier to customs clearance and final cargo delivery to your warehouse." },
+    { title: "Complex Cargo", tag: "Working with special categories", text: "We have deep expertise and all necessary permits for safe transport of dangerous (ADR), oversized and non-standard cargo of any complexity." },
+    { title: "Result-Oriented", tag: "Flexibility and efficiency", text: "We respond quickly to force majeure, promptly change routes when needed and find solutions to non-standard situations without stopping your business." },
+    { title: "Individual Approach", tag: "Personal solutions for projects", text: "We develop unique logistics schemes and financial terms tailored to your company, ensuring constant control and direct contact with a logistician." }
+  ],
+  aboutTitle: "About Us",
+  aboutParagraphs: [
+    "We are a team of experts in international logistics, creating comprehensive turnkey solutions for commercial, industrial and global organizations. For over 16 years we have been building reliable supply chains and helping businesses operate confidently in foreign markets without unnecessary risks and downtime.",
+    "Our experience allows us to develop flexible routes of any complexity — from finding a trusted supplier and the optimal mode of transport to legally flawless customs clearance. We accompany the cargo at every stage of the journey, keeping the entire process under round-the-clock control."
+  ],
+  aboutImageAlt: "LVM logistic container at the warehouse — international logistics",
+  footerAbout: "Full-cycle international logistics: turnkey delivery, transportation and customs brokerage services for your business without borders.",
+  footerHoursLabel: "",
+  footerHours: "",
+  footerNavTitle: "Navigation",
+  footerContactTitle: "Contacts",
+  footerSocialTitle: "Follow Us",
+  footerCopyright: "LVM Logistic. All rights reserved.",
+  footerPrivacyText: "Privacy Policy",
+  quizTitle: "Calculate the Cost",
+  quizSubtitle: "Answer 4 short questions — and we'll prepare an individual quote",
+  quizStepWord: "Step",
+  quizOfWord: "of",
+  quizBackText: "Back",
+  quizNextText: "Next",
+  quizFinishText: "Get a Cost Estimate",
+  quizSuccessTitle: "Thank You!",
+  quizSuccessText: "Your request has been received. A manager will prepare an individual cost and timeline estimate and contact you shortly.",
+  quizSteps: [
+    { question: "Where do you need to ship the cargo from?", options: [
+      { value: "China and Asian countries" }, { value: "Europe (EU countries)" }, { value: "USA and Canada" },
+      { value: "Turkey and the Middle East" }, { value: "Other destination", custom: true, customPlaceholder: "Enter your country" }
+    ]},
+    { question: "Which mode of transport would you like?", options: [
+      { value: "Road" }, { value: "Sea" },
+      { value: "Air" }, { value: "Rail" }, { value: "Combined" }
+    ]},
+    { question: "What range of services do you need?", options: [
+      { value: "Turnkey delivery", desc: "Full cycle: logistics + customs clearance" },
+      { value: "Transport only", desc: "Transportation without customs clearance" },
+      { value: "Customs brokerage", desc: "Customs clearance and permits only" }
+    ]},
+    { question: "Where should we send your individual cost and timeline estimate?", isForm: true }
+  ],
+  quizFormName: "Name", quizFormPhone: "Phone", quizFormEmail: "E-mail",
+  quizFormComment: "Comment or question",
+  quizPhName: "Your name", quizPhEmail: "example@mail.com",
+  quizPhComment: "Describe the details of your cargo (optional)",
+  chatTitle: "We'll Contact You",
+  chatSub: "Leave your name and phone — we'll call you back shortly.",
+  chatName: "Your name",
+  chatSubmit: "Call Me Back",
+  chatSuccess: "Thank You! Your request has been received.<br>A manager will contact you shortly."
 };
 
 /* =========================================================
@@ -2153,11 +2272,13 @@ var I18N_RU = {
       return m ? m[1] : null;
     } catch(e){ return null; }
   }
-  var activeLang = savedLang || (CONFIG.langActive === 'RU' ? 'RU' : 'UA');
+  var activeLang = savedLang || (['RU','EN'].indexOf(CONFIG.langActive) >= 0 ? CONFIG.langActive : 'UA');
 
   /* глибоке злиття перекладу поверх CONFIG (масиви — поелементно по полях) */
-  if (activeLang === 'RU') {
-    var t = I18N_RU;
+  var DICT = { RU: (typeof I18N_RU !== 'undefined' ? I18N_RU : null),
+               EN: (typeof I18N_EN !== 'undefined' ? I18N_EN : null) };
+  if (DICT[activeLang]) {
+    var t = DICT[activeLang];
     for (var key in t) {
       if (!t.hasOwnProperty(key)) continue;
       var val = t[key];
@@ -2179,8 +2300,8 @@ var I18N_RU = {
         CONFIG[key] = val;
       }
     }
-    CONFIG.langActive = 'RU';
-    document.documentElement.lang = 'ru';
+    CONFIG.langActive = activeLang;
+    document.documentElement.lang = activeLang.toLowerCase();
   }
 
   const c = CONFIG;
@@ -2478,7 +2599,7 @@ var I18N_RU = {
           { value: "Морем" },
           { value: "Авіа" },
           { value: "Залізницею" },
-          { value: "Мультимодально (комбіновано)" }
+          { value: "Комбіновано" }
         ]
       },
       {
@@ -2861,6 +2982,7 @@ var I18N_RU = {
     const photo = document.getElementById('welcomePhoto');
     if (photo && c.welcomeImage) photo.style.backgroundImage = "url('" + c.welcomeImage + "')";
     document.getElementById('welcomeEyebrow').textContent = c.welcomeEyebrow || '';
+    if (!c.welcomeEyebrow) document.getElementById('welcomeEyebrow').style.display = 'none';
     document.getElementById('welcomeTitle').textContent   = c.welcomeTitle || '';
     document.getElementById('welcomeSub').textContent     = c.welcomeSub || '';
     document.getElementById('welcomeName').placeholder    = c.welcomeNamePlaceholder || 'Ваше імʼя';
