@@ -1409,32 +1409,21 @@ body { overflow-x: hidden; background: #0a1349; }
   .cargo-grid, .howto-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 860px) {
-  .burger { display: flex; order: 3; }
+  .burger { display: flex; order: 4; }
   .main-nav {
     position: absolute; top: 100%; left: 0; width: 100%;
     flex-direction: column; align-items: flex-start; gap: 0;
     background: var(--color-bg-dark);
     max-height: 0; overflow: hidden;
     transition: max-height .35s ease;
+    order: 5;
   }
-  .main-nav.open { max-height: 600px; }
+  .main-nav.open { max-height: 500px; }
   .main-nav a { padding: 16px 24px; width: 100%; font-size: 17px; }
   .main-nav a::after { display: none; }
-  .header-inner { justify-content: space-between; flex-wrap: nowrap; }
-  /* Контакты (телефон, Telegram, Viber, язык) уезжают в выпадающее меню */
-  .header-right {
-    position: absolute; top: 100%; left: 0; width: 100%;
-    flex-direction: column; align-items: flex-start; gap: 0;
-    background: var(--color-bg-dark);
-    max-height: 0; overflow: hidden; padding: 0;
-    transition: max-height .35s ease;
-    order: 4;
-  }
-  .header-right.open { max-height: 420px; padding: 8px 0 14px; }
-  .header-phone, .header-messenger {
-    padding: 14px 24px; width: 100%; font-size: 16px;
-  }
-  .header-right .lang-switch { padding: 8px 24px; }
+  /* Всё в один ряд: логотип + контакты + бургер */
+  .header-inner { justify-content: space-between; flex-wrap: nowrap; gap: 12px; }
+  .header-right { gap: 14px; flex-wrap: nowrap; }
 }
 @media (max-width: 600px) {
   .hero-inner { padding: 0 18px; }
@@ -1442,8 +1431,12 @@ body { overflow-x: hidden; background: #0a1349; }
   .transport-tabs { gap: 10px; margin-bottom: 32px; }
   .transport-tab { padding: 11px 18px; font-size: 14px; }
   .hero-cta { width: 100%; justify-content: center; padding: 18px; }
+  /* Компактная шапка: иконки мессенджеров без подписей, всё в один ряд с бургером */
+  .header-inner { padding: 10px 16px; gap: 10px; }
   .header-right { gap: 12px; }
-  .header-messenger span, .header-phone { font-size: 14px; }
+  .header-messenger span { display: none; } /* прячем слова Telegram/Viber, оставляем иконки */
+  .header-phone { font-size: 13px; white-space: nowrap; }
+  .lang-current { font-size: 14px; }
   .cargo { padding: 64px 0; }
   .cargo-grid, .howto-grid, .perks-grid { grid-template-columns: 1fr; gap: 20px; }
   .cargo-card, .howto-card { padding: 28px 24px; }
@@ -1457,6 +1450,11 @@ body { overflow-x: hidden; background: #0a1349; }
   .perks-num { font-size: 48px; top: 18px; right: 22px; }
   .conveyor-track { gap: 40px; }
   .conveyor-item svg { width: 34px; height: 34px; }
+}
+/* Очень узкие экраны (маленькие телефоны) — прячем текст телефона, чтобы шапка влезла в один ряд */
+@media (max-width: 400px) {
+  .header-phone { display: none; }
+  .header-right { gap: 14px; }
 }
 </style>
 </head>
@@ -2315,17 +2313,14 @@ var I18N_RU = {
   /* --- Бургер-меню (мобільні) --- */
   const burger = document.getElementById('burger');
   const nav = document.getElementById('mainNav');
-  const headerRight = document.getElementById('headerRight');
   burger.addEventListener('click', () => {
     const open = nav.classList.toggle('open');
-    if (headerRight) headerRight.classList.toggle('open', open);
     burger.classList.toggle('open', open);
     burger.setAttribute('aria-expanded', open);
   });
   nav.addEventListener('click', e => {
     if (e.target.tagName === 'A') {
       nav.classList.remove('open');
-      if (headerRight) headerRight.classList.remove('open');
       burger.classList.remove('open');
       burger.setAttribute('aria-expanded', false);
     }
