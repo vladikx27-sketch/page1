@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Політика конфіденційності — LVM Logistic</title>
+<meta name="description" content="Політика конфіденційності LVM Logistic: як ми збираємо, використовуємо та захищаємо ваші персональні дані.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --color-bg-dark:    #16207a;
+    --color-primary:    #1f4ed8;
+    --color-accent:     #06b6d4;
+    --color-hover:      #F59B0D;
+    --color-text:       #ffffff;
+    --color-text-muted: #c7d6f5;
+    --color-header-bg:  #102a6e;
+    --font-heading:     'Oswald', sans-serif;
+    --font-body:        'Roboto', sans-serif;
+    --maxw:             900px;
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: linear-gradient(180deg, #16207a 0%, #0e1a5e 60%, #0a1349 100%);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+  .pp-header {
+    background: var(--color-header-bg);
+    padding: 22px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .pp-header-inner, .pp-main {
+    max-width: var(--maxw); margin: 0 auto; padding: 0 24px; width: 100%;
+  }
+  .pp-back {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-body); font-weight: 600; font-size: 15px;
+    color: var(--color-text-muted); text-decoration: none;
+    transition: color .25s ease, gap .25s ease;
+  }
+  .pp-back:hover { color: var(--color-accent); gap: 12px; }
+  .pp-back svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  .pp-main { padding-top: 56px; padding-bottom: 80px; }
+  .pp-title {
+    font-family: var(--font-heading); font-weight: 700;
+    font-size: clamp(30px, 5vw, 48px); text-transform: uppercase;
+    letter-spacing: 1px; margin-bottom: 10px;
+  }
+  .pp-updated { font-size: 14px; color: rgba(199,214,245,0.6); margin-bottom: 40px; }
+  .pp-section { margin-bottom: 34px; }
+  .pp-section h2 {
+    font-family: var(--font-heading); font-weight: 600;
+    font-size: clamp(20px, 3vw, 26px); color: var(--color-text);
+    margin-bottom: 14px; letter-spacing: .5px;
+  }
+  .pp-section p, .pp-section li {
+    font-size: 16px; color: var(--color-text-muted);
+  }
+  .pp-section p { margin-bottom: 12px; }
+  .pp-section ul { padding-left: 22px; margin-bottom: 12px; }
+  .pp-section li { margin-bottom: 8px; }
+  .pp-section a { color: var(--color-accent); text-decoration: none; }
+  .pp-section a:hover { text-decoration: underline; }
+  .pp-footer {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding: 24px 0; text-align: center;
+    font-size: 14px; color: rgba(199,214,245,0.6);
+  }
+</style>
+</head>
+<body>
+  <header class="pp-header">
+    <div class="pp-header-inner">
+      <a class="pp-back" href="index.html">
+        <svg viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+        <span id="ppBack"></span>
+      </a>
+    </div>
+  </header>
+
+  <main class="pp-main" id="ppMain"></main>
+
+  <footer class="pp-footer">
+    © <span id="ppYear"></span> <span id="ppCopy"></span>
+  </footer>
+
+  <script>
+    /* Визначаємо мову (зберігається у window.name головною сторінкою) */
+    var lang = 'UA';
+    try { if (window.name && window.name.indexOf('LVM_LANG=') === 0) lang = window.name.slice(9); } catch(e){}
+
+    var PP = {
+      UA: {
+        back: "Повернутися на головну",
+        title: "Політика конфіденційності",
+        updated: "Останнє оновлення: травень 2026 року",
+        copy: "LVM Logistic. Усі права захищені.",
+        sections: [
+          { h: "1. Загальні положення", p: ["Ця Політика конфіденційності визначає порядок обробки та захисту персональних даних користувачів сайту LVM Logistic (далі — «Компанія», «ми»). Користуючись нашим сайтом і залишаючи свої контактні дані, ви погоджуєтесь з умовами цієї Політики.", "Ми поважаємо ваше право на приватність і зобовʼязуємось захищати будь-яку інформацію, яку ви нам надаєте."] },
+          { h: "2. Які дані ми збираємо", p: ["Під час заповнення форм на сайті (квіз розрахунку вартості, форма заявки) ми можемо збирати такі дані:"], ul: ["імʼя;", "номер телефону;", "адресу електронної пошти;", "інформацію про ваш вантаж та запит (країна, вага, тип послуги, коментар)."] },
+          { h: "3. Мета обробки даних", p: ["Зібрані дані використовуються виключно для:"], ul: ["звʼязку з вами та надання індивідуального розрахунку вартості й термінів доставки;", "обробки ваших запитів та надання логістичних послуг;", "покращення якості обслуговування."] },
+          { h: "4. Захист даних", p: ["Ми вживаємо необхідних організаційних і технічних заходів для захисту ваших персональних даних від несанкціонованого доступу, зміни, розкриття або знищення. Доступ до даних мають лише уповноважені співробітники Компанії."] },
+          { h: "5. Передача даних третім особам", p: ["Ми не продаємо та не передаємо ваші персональні дані третім особам, окрім випадків, коли це необхідно для надання послуги (наприклад, партнерам з перевезення чи митного оформлення) або коли цього вимагає чинне законодавство."] },
+          { h: "6. Файли cookie", p: ["Сайт може використовувати файли cookie для коректної роботи та аналізу відвідуваності. Ви можете вимкнути cookie в налаштуваннях свого браузера, проте це може вплинути на роботу окремих функцій сайту."] },
+          { h: "7. Ваші права", p: ["Ви маєте право запитати інформацію про обробку ваших персональних даних, вимагати їх виправлення або видалення. Для цього звʼяжіться з нами за контактами, вказаними на сайті."] },
+          { h: "8. Контакти", p: ['З питань обробки персональних даних звертайтеся:', 'E-mail: <a href="mailto:office@lvmlogistic.com.ua">office@lvmlogistic.com.ua</a><br>Телефон: <a href="tel:+380682597368">+380 68 259 73 68</a>'] }
+        ]
+      },
+      RU: {
+        back: "Вернуться на главную",
+        title: "Политика конфиденциальности",
+        updated: "Последнее обновление: май 2026 года",
+        copy: "LVM Logistic. Все права защищены.",
+        sections: [
+          { h: "1. Общие положения", p: ["Настоящая Политика конфиденциальности определяет порядок обработки и защиты персональных данных пользователей сайта LVM Logistic (далее — «Компания», «мы»). Пользуясь нашим сайтом и оставляя свои контактные данные, вы соглашаетесь с условиями настоящей Политики.", "Мы уважаем ваше право на приватность и обязуемся защищать любую информацию, которую вы нам предоставляете."] },
+          { h: "2. Какие данные мы собираем", p: ["При заполнении форм на сайте (квиз расчёта стоимости, форма заявки) мы можем собирать следующие данные:"], ul: ["имя;", "номер телефона;", "адрес электронной почты;", "информацию о вашем грузе и запросе (страна, вес, тип услуги, комментарий)."] },
+          { h: "3. Цель обработки данных", p: ["Собранные данные используются исключительно для:"], ul: ["связи с вами и предоставления индивидуального расчёта стоимости и сроков доставки;", "обработки ваших запросов и предоставления логистических услуг;", "улучшения качества обслуживания."] },
+          { h: "4. Защита данных", p: ["Мы принимаем необходимые организационные и технические меры для защиты ваших персональных данных от несанкционированного доступа, изменения, раскрытия или уничтожения. Доступ к данным имеют только уполномоченные сотрудники Компании."] },
+          { h: "5. Передача данных третьим лицам", p: ["Мы не продаём и не передаём ваши персональные данные третьим лицам, кроме случаев, когда это необходимо для оказания услуги (например, партнёрам по перевозке или таможенному оформлению) или когда этого требует действующее законодательство."] },
+          { h: "6. Файлы cookie", p: ["Сайт может использовать файлы cookie для корректной работы и анализа посещаемости. Вы можете отключить cookie в настройках своего браузера, однако это может повлиять на работу отдельных функций сайта."] },
+          { h: "7. Ваши права", p: ["Вы имеете право запросить информацию об обработке ваших персональных данных, требовать их исправления или удаления. Для этого свяжитесь с нами по контактам, указанным на сайте."] },
+          { h: "8. Контакты", p: ['По вопросам обработки персональных данных обращайтесь:', 'E-mail: <a href="mailto:office@lvmlogistic.com.ua">office@lvmlogistic.com.ua</a><br>Телефон: <a href="tel:+380682597368">+380 68 259 73 68</a>'] }
+        ]
+      }
+    };
+
+    var d = PP[lang] || PP.UA;
+    if (lang === 'RU') document.documentElement.lang = 'ru';
+    document.title = d.title + " — LVM Logistic";
+    document.getElementById('ppBack').textContent = d.back;
+    document.getElementById('ppCopy').textContent = d.copy;
+    document.getElementById('ppYear').textContent = new Date().getFullYear();
+
+    var html = '<h1 class="pp-title">' + d.title + '</h1>' +
+               '<p class="pp-updated">' + d.updated + '</p>';
+    d.sections.forEach(function(s){
+      html += '<section class="pp-section"><h2>' + s.h + '</h2>';
+      (s.p || []).forEach(function(par){ html += '<p>' + par + '</p>'; });
+      if (s.ul) { html += '<ul>'; s.ul.forEach(function(li){ html += '<li>' + li + '</li>'; }); html += '</ul>'; }
+      html += '</section>';
+    });
+    document.getElementById('ppMain').innerHTML = html;
+  </script>
+</body>
+</html>
