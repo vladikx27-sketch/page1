@@ -2344,6 +2344,30 @@ var I18N_EN = {
     }).catch(function(err){ console.error('Помилка відправки заявки:', err); });
   }
 
+  /* =========================================================
+     ЗАХИСТ ВІД СПАМУ: не більше LIMIT відправок однієї форми за PERIOD
+     ========================================================= */
+  var RATE_LIMIT = 3;            /* скільки разів можна відправити одну форму */
+  var RATE_PERIOD = 60 * 60 * 1000; /* за який період (мс). 60*60*1000 = 1 година */
+
+  function checkRateLimit(formKey) {
+    /* Повертає true, якщо відправка дозволена; false — якщо ліміт вичерпано */
+    try {
+      var now = Date.now();
+      var key = 'LVM_RL_' + formKey;
+      var arr = [];
+      try { arr = JSON.parse(localStorage.getItem(key) || '[]'); } catch(e){ arr = []; }
+      /* лишаємо тільки відправки за останній період */
+      arr = arr.filter(function(t){ return now - t < RATE_PERIOD; });
+      if (arr.length >= RATE_LIMIT) return false; /* ліміт вичерпано */
+      arr.push(now);
+      localStorage.setItem(key, JSON.stringify(arr));
+      return true;
+    } catch(e) {
+      return true; /* якщо localStorage недоступний — не блокуємо */
+    }
+  }
+
   /* Заповнення випадаючого списку кодів країн (той самий список, що в попапі CTA) */
   function fillCountryCodes(selectEl) {
     if (!selectEl) return;
@@ -2584,6 +2608,11 @@ var I18N_EN = {
       if (digits.length < 7) { phoneInput.classList.add('invalid'); ok = false; }
       if (!ok) return;
 
+      if (!checkRateLimit('cta')) {
+        alert('Ви вже відправили декілька заявок. Спробуйте, будь ласка, пізніше — наш менеджер скоро звʼяжеться з вами.');
+        return;
+      }
+
       /* === ДАНІ ЗАЯВКИ === */
       const lead = {
         name:  nameInput.value.trim(),
@@ -2801,6 +2830,11 @@ var I18N_EN = {
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) { email.classList.add('invalid'); ok = false; }
       if (!ok) return;
 
+      if (!checkRateLimit('quiz')) {
+        alert('Ви вже відправили декілька заявок. Спробуйте, будь ласка, пізніше — наш менеджер скоро звʼяжеться з вами.');
+        return;
+      }
+
       /* враховуємо "свою країну", якщо введена */
       let geo = answers[0];
       const customInput = document.getElementById('quizCustomInput0');
@@ -2969,6 +3003,10 @@ var I18N_EN = {
       if (!nameI.value.trim()) { nameI.classList.add('invalid'); ok = false; }
       if (phoneI.value.replace(/\D/g, '').length < 7) { phoneI.classList.add('invalid'); ok = false; }
       if (!ok) return;
+      if (!checkRateLimit('chat')) {
+        alert('Ви вже відправили декілька заявок. Спробуйте, будь ласка, пізніше — наш менеджер скоро звʼяжеться з вами.');
+        return;
+      }
       const lead = {
         name: nameI.value.trim(),
         phone: phoneI.value.trim()
@@ -3037,6 +3075,10 @@ var I18N_EN = {
       if (!nameI.value.trim()) { nameI.classList.add('invalid'); ok = false; }
       if (phoneI.value.replace(/\D/g, '').length < 7) { phoneI.classList.add('invalid'); ok = false; }
       if (!ok) return;
+      if (!checkRateLimit('welcome')) {
+        alert('Ви вже відправили декілька заявок. Спробуйте, будь ласка, пізніше — наш менеджер скоро звʼяжеться з вами.');
+        return;
+      }
       const lead = {
         name: nameI.value.trim(),
         phone: phoneI.value.trim()
