@@ -1610,10 +1610,7 @@ body { overflow-x: hidden; background: #0a1349; width: 100%; max-width: 100%; po
       <p class="welcome-sub" id="welcomeSub"></p>
       <div class="welcome-form" id="welcomeForm">
         <input type="text" id="welcomeName" placeholder="" autocomplete="name">
-        <div class="phone-row">
-          <input type="tel" class="phone-code" id="welcomeCode" aria-label="Код країни" value="+380" maxlength="6">
-          <input type="tel" id="welcomePhone" placeholder="" inputmode="tel" autocomplete="tel">
-        </div>
+        <input type="tel" id="welcomePhone" placeholder="+380 67 123 45 67" inputmode="tel" autocomplete="tel">
         <button class="welcome-submit" id="welcomeSubmit" type="button"></button>
       </div>
       <p class="welcome-note" id="welcomeNote"></p>
@@ -1647,10 +1644,7 @@ body { overflow-x: hidden; background: #0a1349; width: 100%; max-width: 100%; po
     <h3 class="chat-popup-title" id="chatPopupTitle">Зв'яжемося з вами</h3>
     <p class="chat-popup-sub">Залиште імʼя та телефон — ми передзвонимо найближчим часом.</p>
     <input type="text" id="chatName" placeholder="Ваше імʼя" autocomplete="name">
-    <div class="phone-row">
-      <input type="tel" class="phone-code" id="chatCode" aria-label="Код країни" value="+380" maxlength="6">
-      <input type="tel" id="chatPhone" placeholder="" inputmode="tel" autocomplete="tel">
-    </div>
+    <input type="tel" id="chatPhone" placeholder="+380 67 123 45 67" inputmode="tel" autocomplete="tel">
     <button class="chat-popup-submit" id="chatSubmit" type="button">Передзвоніть мені</button>
   </div>
   <div class="chat-popup-success">
@@ -1708,10 +1702,7 @@ body { overflow-x: hidden; background: #0a1349; width: 100%; max-width: 100%; po
       </div>
       <div class="modal-field">
         <label class="modal-label" for="leadPhone" id="labelPhone"></label>
-        <div class="phone-row">
-          <input type="tel" class="phone-code" id="leadCode" aria-label="Код країни" value="+380" maxlength="6">
-          <input class="modal-input" type="tel" id="leadPhone" inputmode="tel" autocomplete="tel" placeholder="67 123 45 67">
-        </div>
+        <input class="modal-input" type="tel" id="leadPhone" inputmode="tel" autocomplete="tel" placeholder="+380 67 123 45 67">
       </div>
       <button class="modal-submit" id="leadSubmit">
         <span id="submitText"></span>
@@ -2551,8 +2542,7 @@ var I18N_EN = {
     document.getElementById('successTitle').textContent  = c.popupSuccessTitle || '';
     document.getElementById('successText').textContent   = c.popupSuccessText || '';
 
-    /* Поле коду країни (редаговане, за замовчуванням +380) */
-    const codeSelect = document.getElementById('leadCode');
+    /* Поле телефону — одне поле з кодом країни в прикладі */
 
     const box       = document.getElementById('leadModalBox');
     const nameInput  = document.getElementById('leadName');
@@ -2597,7 +2587,7 @@ var I18N_EN = {
       /* === ДАНІ ЗАЯВКИ === */
       const lead = {
         name:  nameInput.value.trim(),
-        phone: codeSelect.value.trim() + ' ' + phoneInput.value.trim()
+        phone: phoneInput.value.trim()
       };
       sendLead('Попап заявки', lead);
 
@@ -2694,10 +2684,7 @@ var I18N_EN = {
           '</div>' +
           '<div class="quiz-field">' +
             '<label class="quiz-label" for="qPhone">' + (c.quizFormPhone || 'Телефон') + ' <span class="req">*</span></label>' +
-            '<div class="phone-row">' +
-              '<input type="tel" class="phone-code" id="qCode" aria-label="Код країни" value="+380" maxlength="6">' +
-              '<input class="quiz-input" type="tel" id="qPhone" inputmode="tel" placeholder="">' +
-            '</div>' +
+            '<input class="quiz-input" type="tel" id="qPhone" inputmode="tel" placeholder="+380 67 123 45 67">' +
           '</div>' +
           '<div class="quiz-field">' +
             '<label class="quiz-label" for="qEmail">' + (c.quizFormEmail || 'E-mail') + ' <span class="req">*</span></label>' +
@@ -2806,7 +2793,6 @@ var I18N_EN = {
     function submitQuiz() {
       const name  = document.getElementById('qName');
       const phone = document.getElementById('qPhone');
-      const codeEl = document.getElementById('qCode');
       const email = document.getElementById('qEmail');
       const comment = document.getElementById('qComment');
       let ok = true;
@@ -2820,7 +2806,7 @@ var I18N_EN = {
       const customInput = document.getElementById('quizCustomInput0');
       if (customInput && customInput.value.trim()) geo = customInput.value.trim();
 
-      const phoneFull = (codeEl ? codeEl.value.trim() + ' ' : '') + phone.value.trim();
+      const phoneFull = phone.value.trim();
       const lead = {
         geo: geo,
         transport: answers[1],
@@ -2838,13 +2824,9 @@ var I18N_EN = {
     /* --- Телефон: лише цифри та пробіли --- */
     document.addEventListener('input', (e) => {
       if (e.target && e.target.id === 'qPhone') {
-        e.target.value = e.target.value.replace(/[^\d\s]/g, '');
+        e.target.value = e.target.value.replace(/[^\d\s+()\-]/g, '');
       }
     });
-
-    /* Поле коду країни у квізі вже має значення +380 за замовчуванням */
-    var qPhoneEl = document.getElementById('qPhone');
-    if (qPhoneEl) qPhoneEl.placeholder = '67 123 45 67';
 
     showStep(0);
   })();
@@ -2941,9 +2923,8 @@ var I18N_EN = {
     const closeBtn = document.getElementById('chatPopupClose');
     const nameI  = document.getElementById('chatName');
     const phoneI = document.getElementById('chatPhone');
-    const codeI  = document.getElementById('chatCode');
     const submit = document.getElementById('chatSubmit');
-    phoneI.placeholder = '67 123 45 67';
+    phoneI.placeholder = '+380 67 123 45 67';
 
     /* Локалізація */
     const cTitle = document.getElementById('chatPopupTitle');
@@ -2980,7 +2961,7 @@ var I18N_EN = {
     [nameI, phoneI].forEach(i => i.addEventListener('input', () => i.classList.remove('invalid')));
     /* залишаємо лише цифри та пробіли */
     phoneI.addEventListener('input', () => {
-      phoneI.value = phoneI.value.replace(/[^\d\s]/g, '');
+      phoneI.value = phoneI.value.replace(/[^\d\s+()\-]/g, '');
     });
 
     submit.addEventListener('click', () => {
@@ -2990,7 +2971,7 @@ var I18N_EN = {
       if (!ok) return;
       const lead = {
         name: nameI.value.trim(),
-        phone: codeI.value.trim() + ' ' + phoneI.value.trim()
+        phone: phoneI.value.trim()
       };
       sendLead('Кнопка чату', lead);
       popup.classList.add('is-success');
@@ -3026,9 +3007,8 @@ var I18N_EN = {
     const closeBtn = document.getElementById('welcomeClose');
     const nameI    = document.getElementById('welcomeName');
     const phoneI   = document.getElementById('welcomePhone');
-    const codeI    = document.getElementById('welcomeCode');
     const submit   = document.getElementById('welcomeSubmit');
-    phoneI.placeholder = '67 123 45 67';
+    phoneI.placeholder = '+380 67 123 45 67';
 
     function openWelcome() {
       overlay.classList.add('open');
@@ -3049,7 +3029,7 @@ var I18N_EN = {
     [nameI, phoneI].forEach(i => i.addEventListener('input', () => i.classList.remove('invalid')));
     /* залишаємо у полі лише цифри та пробіли */
     phoneI.addEventListener('input', () => {
-      phoneI.value = phoneI.value.replace(/[^\d\s]/g, '');
+      phoneI.value = phoneI.value.replace(/[^\d\s+()\-]/g, '');
     });
 
     submit.addEventListener('click', () => {
@@ -3059,7 +3039,7 @@ var I18N_EN = {
       if (!ok) return;
       const lead = {
         name: nameI.value.trim(),
-        phone: codeI.value.trim() + ' ' + phoneI.value.trim()
+        phone: phoneI.value.trim()
       };
       sendLead('Великий попап (20 сек)', lead);
       box.classList.add('is-success');
