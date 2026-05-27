@@ -4,6 +4,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- ============================================================
+     GOOGLE ANALYTICS (статистика відвідувачів)
+     Щоб увімкнути аналітику:
+     1. Зареєструйтесь на https://analytics.google.com
+     2. Створіть ресурс (Property) для сайту
+     3. Отримайте ID виду G-XXXXXXXXXX
+     4. Замініть НИЖЧЕ обидва входження G-XXXXXXXXXX на свій ID
+     5. Розкоментуйте блок (приберіть рядки з <!-- та --> навколо нього)
+     Поки блок закоментований — аналітика вимкнена, сайт працює як зазвичай.
+     ============================================================ -->
+<!--
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+-->
+
 <!-- ===== SEO META ===== -->
 <title>Доставка під ключ — Міжнародна логістика</title>
 <meta name="description" content="Повний цикл імпорту та експорту: авіа, море, авто, залізниця, комбіновано. Розрахунок вартості доставки онлайн.">
@@ -1322,7 +1342,10 @@ body { overflow-x: hidden; background: #0a1349; }
 }
 .phone-code:focus { outline: none; border-color: var(--color-accent); }
 .phone-code option { background: var(--color-bg-dark); color: var(--color-text); }
-.phone-row .modal-input { flex: 1 1 auto; }
+.phone-row .modal-input,
+.phone-row .quiz-input,
+.phone-row input[type="tel"] { flex: 1 1 auto; min-width: 0; }
+.welcome-form .phone-row { margin: 0; }
 .modal-submit {
   display: inline-flex; align-items: center; justify-content: center; gap: 10px;
   width: 100%; margin-top: 10px;
@@ -1593,7 +1616,10 @@ body { overflow-x: hidden; background: #0a1349; }
       <p class="welcome-sub" id="welcomeSub"></p>
       <div class="welcome-form" id="welcomeForm">
         <input type="text" id="welcomeName" placeholder="" autocomplete="name">
-        <input type="tel" id="welcomePhone" placeholder="+38 (0__) ___-__-__" inputmode="tel" autocomplete="tel">
+        <div class="phone-row">
+          <select class="phone-code" id="welcomeCode" aria-label="Код країни"></select>
+          <input type="tel" id="welcomePhone" placeholder="" inputmode="tel" autocomplete="tel">
+        </div>
         <button class="welcome-submit" id="welcomeSubmit" type="button"></button>
       </div>
       <p class="welcome-note" id="welcomeNote"></p>
@@ -1627,7 +1653,10 @@ body { overflow-x: hidden; background: #0a1349; }
     <h3 class="chat-popup-title" id="chatPopupTitle">Зв'яжемося з вами</h3>
     <p class="chat-popup-sub">Залиште імʼя та телефон — ми передзвонимо найближчим часом.</p>
     <input type="text" id="chatName" placeholder="Ваше імʼя" autocomplete="name">
-    <input type="tel" id="chatPhone" placeholder="+38 (0__) ___-__-__" inputmode="tel" autocomplete="tel">
+    <div class="phone-row">
+      <select class="phone-code" id="chatCode" aria-label="Код країни"></select>
+      <input type="tel" id="chatPhone" placeholder="" inputmode="tel" autocomplete="tel">
+    </div>
     <button class="chat-popup-submit" id="chatSubmit" type="button">Передзвоніть мені</button>
   </div>
   <div class="chat-popup-success">
@@ -1826,7 +1855,7 @@ const CONFIG = {
   ctaUrl:  "#calc",                         /* ЗМІНИТИ — куди веде кнопка */
 
   /* ===== ПОПАП ЗАЯВКИ (відкривається кнопкою CTA) ===== */
-  popupEyebrow:  "Безкоштовний прорахунок",      /* ЗМІНИТИ — маленький напис зверху */
+  popupEyebrow:  "Прорахунок доставки",      /* ЗМІНИТИ — маленький напис зверху */
   popupTitle:    "Зв'яжемося з вами",            /* ЗМІНИТИ — заголовок попапу */
   popupSubtitle: "Залиште свої контакти — звʼяжемось з вами протягом 10 хвилин і розрахуємо вартість доставки.", /* ЗМІНИТИ */
   popupNameLabel:  "Ваше ім'я",                  /* ЗМІНИТИ */
@@ -1843,7 +1872,7 @@ const CONFIG = {
   welcomeOncePerSession: true,           /* ЗМІНИТИ — true: показувати лише раз за сесію */
   welcomeImage:    "quiz-photo.jpg", /* ЗМІНИТИ — картинка ліворуч у попапі */
   welcomeEyebrow:  "", /* порожнє = напис прихований */
-  welcomeTitle:    "Безкоштовний розрахунок доставки", /* ЗМІНИТИ */
+  welcomeTitle:    "Розрахунок вартості доставки", /* ЗМІНИТИ */
   welcomeSub:      "Залиште імʼя та телефон — звʼяжемось з вами протягом 10 хвилин.", /* ЗМІНИТИ */
   welcomeNamePlaceholder:  "Ваше імʼя",  /* ЗМІНИТИ */
   welcomeSubmitText: "Отримати розрахунок", /* ЗМІНИТИ */
@@ -2024,7 +2053,7 @@ var I18N_RU = {
   heroTitleLine1: "Доставка",
   heroTitleLine2: "под ключ",
   ctaText: "Рассчитать стоимость доставки",
-  popupEyebrow:  "Бесплатный расчёт",
+  popupEyebrow:  "Расчёт доставки",
   popupTitle:    "Свяжемся с вами",
   popupSubtitle: "Оставьте свои контакты — свяжемся с вами в течение 10 минут и рассчитаем стоимость доставки.",
   popupNameLabel:  "Ваше имя",
@@ -2034,7 +2063,7 @@ var I18N_RU = {
   popupSuccessTitle: "Спасибо!",
   popupSuccessText: "Ваша заявка принята. Менеджер свяжется с вами в ближайшее время.",
   welcomeEyebrow:  "",
-  welcomeTitle:    "Бесплатный расчёт доставки",
+  welcomeTitle:    "Расчёт стоимости доставки",
   welcomeSub:      "Оставьте имя и телефон — свяжемся с вами в течение 10 минут.",
   welcomeNamePlaceholder: "Ваше имя",
   welcomeSubmitText: "Получить расчёт",
@@ -2146,7 +2175,7 @@ var I18N_EN = {
   heroTitleLine1: "Turnkey",
   heroTitleLine2: "Delivery",
   ctaText: "Calculate Delivery Cost",
-  popupEyebrow:  "Free Quote",
+  popupEyebrow:  "Delivery Quote",
   popupTitle:    "We'll Contact You",
   popupSubtitle: "Leave your contacts — we'll get in touch within 10 minutes and calculate your delivery cost.",
   popupNameLabel:  "Your Name",
@@ -2156,7 +2185,7 @@ var I18N_EN = {
   popupSuccessTitle: "Thank You!",
   popupSuccessText: "Your request has been received. A manager will contact you shortly.",
   welcomeEyebrow:  "",
-  welcomeTitle:    "Free Delivery Quote",
+  welcomeTitle:    "Delivery Cost Estimate",
   welcomeSub:      "Leave your name and phone — we'll contact you within 10 minutes.",
   welcomeNamePlaceholder: "Your Name",
   welcomeSubmitText: "Get a Quote",
@@ -2328,6 +2357,20 @@ var I18N_EN = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     }).catch(function(err){ console.error('Помилка відправки заявки:', err); });
+  }
+
+  /* Заповнення випадаючого списку кодів країн (той самий список, що в попапі CTA) */
+  function fillCountryCodes(selectEl) {
+    if (!selectEl) return;
+    selectEl.innerHTML = '';
+    (c.popupCountryCodes || []).forEach(function(item, i){
+      var opt = document.createElement('option');
+      opt.value = item.code;
+      opt.textContent = item.flag + ' ' + item.code;
+      opt.title = item.name;
+      if (i === 0) opt.selected = true;
+      selectEl.appendChild(opt);
+    });
   }
 
   /* --- Кольори у CSS-змінні --- */
@@ -2657,7 +2700,10 @@ var I18N_EN = {
           '</div>' +
           '<div class="quiz-field">' +
             '<label class="quiz-label" for="qPhone">' + (c.quizFormPhone || 'Телефон') + ' <span class="req">*</span></label>' +
-            '<input class="quiz-input" type="tel" id="qPhone" inputmode="tel" placeholder="+38 (0__) ___-__-__">' +
+            '<div class="phone-row">' +
+              '<select class="phone-code" id="qCode" aria-label="Код країни"></select>' +
+              '<input class="quiz-input" type="tel" id="qPhone" inputmode="tel" placeholder="">' +
+            '</div>' +
           '</div>' +
           '<div class="quiz-field">' +
             '<label class="quiz-label" for="qEmail">' + (c.quizFormEmail || 'E-mail') + ' <span class="req">*</span></label>' +
@@ -2766,11 +2812,12 @@ var I18N_EN = {
     function submitQuiz() {
       const name  = document.getElementById('qName');
       const phone = document.getElementById('qPhone');
+      const codeEl = document.getElementById('qCode');
       const email = document.getElementById('qEmail');
       const comment = document.getElementById('qComment');
       let ok = true;
       if (!name.value.trim()) { name.classList.add('invalid'); ok = false; }
-      if (phone.value.replace(/\D/g, '').length < 9) { phone.classList.add('invalid'); ok = false; }
+      if (phone.value.replace(/\D/g, '').length < 7) { phone.classList.add('invalid'); ok = false; }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) { email.classList.add('invalid'); ok = false; }
       if (!ok) return;
 
@@ -2779,12 +2826,14 @@ var I18N_EN = {
       const customInput = document.getElementById('quizCustomInput0');
       if (customInput && customInput.value.trim()) geo = customInput.value.trim();
 
+      const phoneFull = (codeEl ? codeEl.value + ' ' : '') + phone.value.trim();
       const lead = {
         geo: geo,
         transport: answers[1],
         service: answers[2],
         name: name.value.trim(),
-        phone: phone.value.trim(),
+        phone: phoneFull,
+        country: codeEl ? codeEl.options[codeEl.selectedIndex].title : '',
         email: email.value.trim(),
         comment: comment.value.trim()
       };
@@ -2793,23 +2842,18 @@ var I18N_EN = {
       box.classList.add('is-success');
     }
 
-    /* --- Маска українського телефону --- */
+    /* --- Телефон: лише цифри та пробіли --- */
     document.addEventListener('input', (e) => {
       if (e.target && e.target.id === 'qPhone') {
-        let d = e.target.value.replace(/\D/g, '');
-        if (d.startsWith('380')) d = d.slice(3);
-        else if (d.startsWith('0')) d = d.slice(1);
-        d = d.slice(0, 9);
-        let out = '+38 (0';
-        if (d.length === 0) { e.target.value = ''; return; }
-        out += d.slice(0, 2);
-        if (d.length >= 2) out += ') ';
-        out += d.slice(2, 5);
-        if (d.length >= 5) out += '-' + d.slice(5, 7);
-        if (d.length >= 7) out += '-' + d.slice(7, 9);
-        e.target.value = out;
+        e.target.value = e.target.value.replace(/[^\d\s]/g, '');
       }
     });
+
+    /* Заповнюємо коди країн у квізі + placeholder */
+    var qCodeEl = document.getElementById('qCode');
+    if (qCodeEl) fillCountryCodes(qCodeEl);
+    var qPhoneEl = document.getElementById('qPhone');
+    if (qPhoneEl) qPhoneEl.placeholder = '67 123 45 67';
 
     showStep(0);
   })();
@@ -2906,7 +2950,10 @@ var I18N_EN = {
     const closeBtn = document.getElementById('chatPopupClose');
     const nameI  = document.getElementById('chatName');
     const phoneI = document.getElementById('chatPhone');
+    const codeI  = document.getElementById('chatCode');
     const submit = document.getElementById('chatSubmit');
+    fillCountryCodes(codeI);
+    phoneI.placeholder = '67 123 45 67';
 
     /* Локалізація */
     const cTitle = document.getElementById('chatPopupTitle');
@@ -2941,28 +2988,21 @@ var I18N_EN = {
     });
 
     [nameI, phoneI].forEach(i => i.addEventListener('input', () => i.classList.remove('invalid')));
-
-    /* Маска українського телефону */
+    /* залишаємо лише цифри та пробіли */
     phoneI.addEventListener('input', () => {
-      let d = phoneI.value.replace(/\D/g, '');
-      if (d.startsWith('380')) d = d.slice(3);
-      else if (d.startsWith('0')) d = d.slice(1);
-      d = d.slice(0, 9);
-      if (!d.length) { phoneI.value = ''; return; }
-      let out = '+38 (0' + d.slice(0, 2);
-      if (d.length >= 2) out += ') ';
-      out += d.slice(2, 5);
-      if (d.length >= 5) out += '-' + d.slice(5, 7);
-      if (d.length >= 7) out += '-' + d.slice(7, 9);
-      phoneI.value = out;
+      phoneI.value = phoneI.value.replace(/[^\d\s]/g, '');
     });
 
     submit.addEventListener('click', () => {
       let ok = true;
       if (!nameI.value.trim()) { nameI.classList.add('invalid'); ok = false; }
-      if (phoneI.value.replace(/\D/g, '').length < 9) { phoneI.classList.add('invalid'); ok = false; }
+      if (phoneI.value.replace(/\D/g, '').length < 7) { phoneI.classList.add('invalid'); ok = false; }
       if (!ok) return;
-      const lead = { name: nameI.value.trim(), phone: phoneI.value.trim() };
+      const lead = {
+        name: nameI.value.trim(),
+        phone: codeI.value + ' ' + phoneI.value.trim(),
+        country: codeI.options[codeI.selectedIndex].title
+      };
       sendLead('Кнопка чату', lead);
       popup.classList.add('is-success');
       nameI.value = ''; phoneI.value = '';
@@ -2997,7 +3037,10 @@ var I18N_EN = {
     const closeBtn = document.getElementById('welcomeClose');
     const nameI    = document.getElementById('welcomeName');
     const phoneI   = document.getElementById('welcomePhone');
+    const codeI    = document.getElementById('welcomeCode');
     const submit   = document.getElementById('welcomeSubmit');
+    fillCountryCodes(codeI);
+    phoneI.placeholder = '67 123 45 67';
 
     function openWelcome() {
       overlay.classList.add('open');
@@ -3016,28 +3059,21 @@ var I18N_EN = {
     });
 
     [nameI, phoneI].forEach(i => i.addEventListener('input', () => i.classList.remove('invalid')));
-
-    /* Маска українського телефону */
+    /* залишаємо у полі лише цифри та пробіли */
     phoneI.addEventListener('input', () => {
-      let d = phoneI.value.replace(/\D/g, '');
-      if (d.startsWith('380')) d = d.slice(3);
-      else if (d.startsWith('0')) d = d.slice(1);
-      d = d.slice(0, 9);
-      if (!d.length) { phoneI.value = ''; return; }
-      let out = '+38 (0' + d.slice(0, 2);
-      if (d.length >= 2) out += ') ';
-      out += d.slice(2, 5);
-      if (d.length >= 5) out += '-' + d.slice(5, 7);
-      if (d.length >= 7) out += '-' + d.slice(7, 9);
-      phoneI.value = out;
+      phoneI.value = phoneI.value.replace(/[^\d\s]/g, '');
     });
 
     submit.addEventListener('click', () => {
       let ok = true;
       if (!nameI.value.trim()) { nameI.classList.add('invalid'); ok = false; }
-      if (phoneI.value.replace(/\D/g, '').length < 9) { phoneI.classList.add('invalid'); ok = false; }
+      if (phoneI.value.replace(/\D/g, '').length < 7) { phoneI.classList.add('invalid'); ok = false; }
       if (!ok) return;
-      const lead = { name: nameI.value.trim(), phone: phoneI.value.trim() };
+      const lead = {
+        name: nameI.value.trim(),
+        phone: codeI.value + ' ' + phoneI.value.trim(),
+        country: codeI.options[codeI.selectedIndex].title
+      };
       sendLead('Великий попап (20 сек)', lead);
       box.classList.add('is-success');
       nameI.value = ''; phoneI.value = '';
