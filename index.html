@@ -2,19 +2,10 @@
 <html lang="uk">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 
-<!-- ============================================================
-     GOOGLE ANALYTICS (статистика відвідувачів)
-     Щоб увімкнути аналітику:
-     1. Зареєструйтесь на https://analytics.google.com
-     2. Створіть ресурс (Property) для сайту
-     3. Отримайте ID виду G-XXXXXXXXXX
-     4. Замініть НИЖЧЕ обидва входження G-XXXXXXXXXX на свій ID
-     5. Розкоментуйте блок (приберіть рядки з <!-- та --> навколо нього)
-     Поки блок закоментований — аналітика вимкнена, сайт працює як зазвичай.
-     ============================================================ -->
-<!--
+<!-- GOOGLE ANALYTICS (статистика відвідувачів). Щоб увімкнути: 1) зареєструйтесь на analytics.google.com, 2) отримайте ID виду G-XXXXXXXXXX, 3) замініть обидва G-XXXXXXXXXX нижче на свій ID, 4) розкоментуйте блок (приберіть рядок з відкриттям та рядок із закриттям коментаря). Поки блок закоментований — аналітика вимкнена. -->
+<!-- ВИДАЛІТЬ ЦЕЙ РЯДОК ЩОБ УВІМКНУТИ
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -22,7 +13,7 @@
   gtag('js', new Date());
   gtag('config', 'G-XXXXXXXXXX');
 </script>
--->
+ВИДАЛІТЬ ЦЕЙ РЯДОК ЩОБ УВІМКНУТИ -->
 
 <!-- ===== SEO META ===== -->
 <title>Доставка під ключ — Міжнародна логістика</title>
@@ -33,8 +24,8 @@
 <style>
 /* Базовий ресет */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { overflow-x: hidden; background: #0a1349; }
+html { scroll-behavior: smooth; overflow-x: hidden; width: 100%; }
+body { overflow-x: hidden; background: #0a1349; width: 100%; max-width: 100%; position: relative; }
 
 /* ===== CSS-ЗМІННІ (значення підставляються з CONFIG через JS) ===== */
 :root {
@@ -838,12 +829,12 @@ body { overflow-x: hidden; background: #0a1349; }
 .quiz-label .req { color: var(--color-hover); }
 .quiz-input, .quiz-textarea {
   width: 100%;
-  font-family: var(--font-body); font-size: 16px;
+  font-family: var(--font-body); font-size: 15px;
   color: var(--color-text);
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.16);
-  border-radius: 12px;
-  padding: 14px 16px;
+  border-radius: 10px;
+  padding: 12px 14px;
   transition: border-color .25s ease, background .25s ease, box-shadow .25s ease;
 }
 .quiz-input::placeholder, .quiz-textarea::placeholder { color: rgba(199,214,245,0.5); }
@@ -987,10 +978,10 @@ body { overflow-x: hidden; background: #0a1349; }
 .welcome-form { display: flex; flex-direction: column; gap: 12px; }
 .welcome-form input {
   width: 100%;
-  font-family: var(--font-body); font-size: 16px; color: var(--color-text);
+  font-family: var(--font-body); font-size: 15px; color: var(--color-text);
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.16);
-  border-radius: 12px; padding: 14px 16px;
+  border-radius: 10px; padding: 12px 14px;
   transition: border-color .25s ease, box-shadow .25s ease, background .25s ease;
 }
 .welcome-form input::placeholder { color: rgba(199,214,245,0.5); }
@@ -1301,12 +1292,12 @@ body { overflow-x: hidden; background: #0a1349; }
 }
 .modal-input {
   width: 100%;
-  font-family: var(--font-body); font-size: 16px;
+  font-family: var(--font-body); font-size: 15px;
   color: var(--color-text);
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.16);
-  border-radius: 12px;
-  padding: 14px 16px;
+  border-radius: 10px;
+  padding: 12px 14px;
   transition: border-color .25s ease, background .25s ease, box-shadow .25s ease;
 }
 .modal-input::placeholder { color: rgba(199,214,245,0.55); }
@@ -1321,30 +1312,33 @@ body { overflow-x: hidden; background: #0a1349; }
   box-shadow: 0 0 0 3px rgba(239,83,80,0.18);
 }
 /* Поле телефону: код країни + номер */
-.phone-row { display: flex; gap: 10px; }
-.phone-code {
-  flex: 0 0 118px;
-  font-family: var(--font-body); font-size: 15px;
+.phone-row { display: flex; gap: 8px; align-items: stretch; width: 100%; margin-bottom: 12px; }
+.phone-code,
+.phone-row .phone-code {
+  flex: 0 0 58px !important;
+  width: 58px !important;
+  box-sizing: border-box;
+  height: 46px;
+  text-align: center;
+  font-family: var(--font-body); font-size: 14px; font-weight: 600;
   color: var(--color-text);
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.16);
-  border-radius: 12px;
-  padding: 14px 12px;
-  cursor: pointer;
+  border-radius: 10px;
+  padding: 0 2px;
+  margin-bottom: 0 !important;
   transition: border-color .25s ease, background .25s ease;
-  appearance: none;
-  -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c7d6f5' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M7 10l5 5 5-5'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  background-size: 14px;
-  padding-right: 30px;
 }
-.phone-code:focus { outline: none; border-color: var(--color-accent); }
-.phone-code option { background: var(--color-bg-dark); color: var(--color-text); }
+.phone-code:focus { outline: none; border-color: var(--color-accent); background: rgba(255,255,255,0.1); }
 .phone-row .modal-input,
 .phone-row .quiz-input,
-.phone-row input[type="tel"] { flex: 1 1 auto; min-width: 0; }
+.phone-row input[type="tel"]:not(.phone-code) {
+  flex: 1 1 auto !important; min-width: 0;
+  box-sizing: border-box;
+  height: 46px;
+  width: auto;
+  margin-bottom: 0 !important;
+}
 .welcome-form .phone-row { margin: 0; }
 .modal-submit {
   display: inline-flex; align-items: center; justify-content: center; gap: 10px;
@@ -1617,7 +1611,7 @@ body { overflow-x: hidden; background: #0a1349; }
       <div class="welcome-form" id="welcomeForm">
         <input type="text" id="welcomeName" placeholder="" autocomplete="name">
         <div class="phone-row">
-          <select class="phone-code" id="welcomeCode" aria-label="Код країни"></select>
+          <input type="tel" class="phone-code" id="welcomeCode" aria-label="Код країни" value="+380" maxlength="6">
           <input type="tel" id="welcomePhone" placeholder="" inputmode="tel" autocomplete="tel">
         </div>
         <button class="welcome-submit" id="welcomeSubmit" type="button"></button>
@@ -1654,7 +1648,7 @@ body { overflow-x: hidden; background: #0a1349; }
     <p class="chat-popup-sub">Залиште імʼя та телефон — ми передзвонимо найближчим часом.</p>
     <input type="text" id="chatName" placeholder="Ваше імʼя" autocomplete="name">
     <div class="phone-row">
-      <select class="phone-code" id="chatCode" aria-label="Код країни"></select>
+      <input type="tel" class="phone-code" id="chatCode" aria-label="Код країни" value="+380" maxlength="6">
       <input type="tel" id="chatPhone" placeholder="" inputmode="tel" autocomplete="tel">
     </div>
     <button class="chat-popup-submit" id="chatSubmit" type="button">Передзвоніть мені</button>
@@ -1715,8 +1709,8 @@ body { overflow-x: hidden; background: #0a1349; }
       <div class="modal-field">
         <label class="modal-label" for="leadPhone" id="labelPhone"></label>
         <div class="phone-row">
-          <select class="phone-code" id="leadCode" aria-label="Код країни"></select>
-          <input class="modal-input" type="tel" id="leadPhone" inputmode="tel" autocomplete="tel">
+          <input type="tel" class="phone-code" id="leadCode" aria-label="Код країни" value="+380" maxlength="6">
+          <input class="modal-input" type="tel" id="leadPhone" inputmode="tel" autocomplete="tel" placeholder="67 123 45 67">
         </div>
       </div>
       <button class="modal-submit" id="leadSubmit">
@@ -2373,6 +2367,15 @@ var I18N_EN = {
     });
   }
 
+  /* Поля коду країни: дозволяємо лише + та цифри */
+  document.addEventListener('input', function(e){
+    if (e.target && e.target.classList && e.target.classList.contains('phone-code')) {
+      var v = e.target.value.replace(/[^\d+]/g, '');
+      if (v.indexOf('+') > 0) v = '+' + v.replace(/\+/g, ''); /* + лише на початку */
+      e.target.value = v;
+    }
+  });
+
   /* --- Кольори у CSS-змінні --- */
   const r = document.documentElement.style;
   r.setProperty('--color-bg-dark',    c.colors.bgDark);
@@ -2548,16 +2551,8 @@ var I18N_EN = {
     document.getElementById('successTitle').textContent  = c.popupSuccessTitle || '';
     document.getElementById('successText').textContent   = c.popupSuccessText || '';
 
-    /* Заповнюємо select кодів країн */
+    /* Поле коду країни (редаговане, за замовчуванням +380) */
     const codeSelect = document.getElementById('leadCode');
-    (c.popupCountryCodes || []).forEach((item, i) => {
-      const opt = document.createElement('option');
-      opt.value = item.code;
-      opt.textContent = item.flag + ' ' + item.code;
-      opt.title = item.name;
-      if (i === 0) opt.selected = true;
-      codeSelect.appendChild(opt);
-    });
 
     const box       = document.getElementById('leadModalBox');
     const nameInput  = document.getElementById('leadName');
@@ -2602,8 +2597,7 @@ var I18N_EN = {
       /* === ДАНІ ЗАЯВКИ === */
       const lead = {
         name:  nameInput.value.trim(),
-        phone: codeSelect.value + ' ' + phoneInput.value.trim(),
-        country: codeSelect.options[codeSelect.selectedIndex].title
+        phone: codeSelect.value.trim() + ' ' + phoneInput.value.trim()
       };
       sendLead('Попап заявки', lead);
 
@@ -2656,7 +2650,7 @@ var I18N_EN = {
         ]
       },
       {
-        question: "Куди надіслати індивідуальний розрахунок вартості та термінів?",
+        question: "Куди надіслати індивідуальний розрахунок вартості та термінів доставки?",
         isForm: true
       }
     ];
@@ -2701,7 +2695,7 @@ var I18N_EN = {
           '<div class="quiz-field">' +
             '<label class="quiz-label" for="qPhone">' + (c.quizFormPhone || 'Телефон') + ' <span class="req">*</span></label>' +
             '<div class="phone-row">' +
-              '<select class="phone-code" id="qCode" aria-label="Код країни"></select>' +
+              '<input type="tel" class="phone-code" id="qCode" aria-label="Код країни" value="+380" maxlength="6">' +
               '<input class="quiz-input" type="tel" id="qPhone" inputmode="tel" placeholder="">' +
             '</div>' +
           '</div>' +
@@ -2826,14 +2820,13 @@ var I18N_EN = {
       const customInput = document.getElementById('quizCustomInput0');
       if (customInput && customInput.value.trim()) geo = customInput.value.trim();
 
-      const phoneFull = (codeEl ? codeEl.value + ' ' : '') + phone.value.trim();
+      const phoneFull = (codeEl ? codeEl.value.trim() + ' ' : '') + phone.value.trim();
       const lead = {
         geo: geo,
         transport: answers[1],
         service: answers[2],
         name: name.value.trim(),
         phone: phoneFull,
-        country: codeEl ? codeEl.options[codeEl.selectedIndex].title : '',
         email: email.value.trim(),
         comment: comment.value.trim()
       };
@@ -2849,9 +2842,7 @@ var I18N_EN = {
       }
     });
 
-    /* Заповнюємо коди країн у квізі + placeholder */
-    var qCodeEl = document.getElementById('qCode');
-    if (qCodeEl) fillCountryCodes(qCodeEl);
+    /* Поле коду країни у квізі вже має значення +380 за замовчуванням */
     var qPhoneEl = document.getElementById('qPhone');
     if (qPhoneEl) qPhoneEl.placeholder = '67 123 45 67';
 
@@ -2952,7 +2943,6 @@ var I18N_EN = {
     const phoneI = document.getElementById('chatPhone');
     const codeI  = document.getElementById('chatCode');
     const submit = document.getElementById('chatSubmit');
-    fillCountryCodes(codeI);
     phoneI.placeholder = '67 123 45 67';
 
     /* Локалізація */
@@ -3000,8 +2990,7 @@ var I18N_EN = {
       if (!ok) return;
       const lead = {
         name: nameI.value.trim(),
-        phone: codeI.value + ' ' + phoneI.value.trim(),
-        country: codeI.options[codeI.selectedIndex].title
+        phone: codeI.value.trim() + ' ' + phoneI.value.trim()
       };
       sendLead('Кнопка чату', lead);
       popup.classList.add('is-success');
@@ -3039,7 +3028,6 @@ var I18N_EN = {
     const phoneI   = document.getElementById('welcomePhone');
     const codeI    = document.getElementById('welcomeCode');
     const submit   = document.getElementById('welcomeSubmit');
-    fillCountryCodes(codeI);
     phoneI.placeholder = '67 123 45 67';
 
     function openWelcome() {
@@ -3071,8 +3059,7 @@ var I18N_EN = {
       if (!ok) return;
       const lead = {
         name: nameI.value.trim(),
-        phone: codeI.value + ' ' + phoneI.value.trim(),
-        country: codeI.options[codeI.selectedIndex].title
+        phone: codeI.value.trim() + ' ' + phoneI.value.trim()
       };
       sendLead('Великий попап (20 сек)', lead);
       box.classList.add('is-success');
